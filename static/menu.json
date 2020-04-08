@@ -1,0 +1,32 @@
+[{
+    "id":1,
+    "parentUid":1,
+    "title":"관리자화면"
+},
+{
+    "id":2,
+    "parentUid":2,
+    "title":"사용자 관리",
+    "name":"User",
+    "path":"user"
+},
+{
+    "id":3,
+    "parentUid":2,
+    "title":"코드 관리",
+    "name":"Code",
+    "path":"code"
+},
+{
+    "id":4,
+    "parentUid":1,
+    "title":"샘플"
+},
+{
+    "id":5,
+    "parentUid":2,
+    "title":"파일업로드",
+    "name":"Upload",
+    "path":"upload"
+}
+]
