@@ -93,7 +93,7 @@
 
 #### vuex 동작구성
 
-![](C:\Users\bnksys\Desktop\999A08495CDF9C3B07.png)
+![](https://vuex.vuejs.org/vuex.png)
 
 위의 사진은 본프로젝트의 Vuex동작구성과 관련된 이미지이다.
 
