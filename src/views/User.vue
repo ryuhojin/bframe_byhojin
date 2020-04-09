@@ -152,12 +152,14 @@
       @close="displayModal=false"
       @submit="save"
     ></Modal>
+
   </div>
 </template>
 <script>
 import Modal from "@/components/common/UserModal";
 import { mapGetters } from "vuex";
 import users from "@/api/admin/User";
+
 export default {
   name: "User",
   data: function() {
@@ -229,6 +231,7 @@ export default {
       let command = values.command,
         data = values.data;
       if ("INSERT" === command) {
+
         users.insert(values);
         this.displayModal = "none";
       } else if ("UPDATE" === command) {

@@ -1,5 +1,5 @@
 <template>
-  <div :style="{display:displayModal}"  style="background-color: rgba(0, 0, 0, .5); left:0 !important; top:0 !important; position:fixed !important; z-index:999" class="d-flex flex-row justify-content-center align-items-center vw-100 vh-100">
+  <div :style="{display:displayModal}"  style="background-color: rgba(0, 0, 0, .5); left:0 !important; top:0 !important; position:fixed !important; z-index:200" class="d-flex flex-row justify-content-center align-items-center vw-100 vh-100">
     <div class="d-flex flex-column vw-30 vh-64 bg-white align-items-center">
       <div class="d-flex flex-row vw-30 vh-6 align-items-center justify-content-between bg-deepdark">
         <span class="h5 text-white font-weight-bold ml-5" >{{title}}</span>
