@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="d-flex flex-row vw-100 vh-100">
+    <messagebox/>
     <Lnb v-if="isLoggedIn" />
     <div class="d-flex flex-column vw-87 vh-100 bg-deeplight align-items-center">
       <Head v-if="isLoggedIn" />
@@ -18,6 +19,7 @@ import common from "./api/common/CommonApi"
 import Lnb from "./components/common/Lnb"
 import Head from "./components/common/Header"
 import Mdi from "./components/common/Mdi"
+import messagebox from "./components/common/MessageBox"
 import { mapGetters } from "vuex"
 
 export default {
@@ -25,7 +27,8 @@ export default {
   components: {
     Lnb,
     Head,
-    Mdi
+    Mdi,
+    messagebox
   },
   mounted() {
     this.searchAll()

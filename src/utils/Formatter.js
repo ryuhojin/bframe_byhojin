@@ -20,3 +20,10 @@ export function numberWithCommas(x) {
 export function removeComma(x) {
     return x.value.replace(/,/gi,"");
 }
+
+/**원화표기 및 천단위 콤마표시 */
+export function wonwithCommas(x){
+	return "￦"+x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+/** */
