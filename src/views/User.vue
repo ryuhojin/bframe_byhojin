@@ -126,22 +126,7 @@
       </table>
     </div>
     <div class="d-flex flex-row justify-content-around align-items-center vw-86 vh-4 mt-1 bg-white">
-     <select v-model="pageview" class="form-control vw-5 vh-4 p-0">
-        <option>
-          5
-        </option>
-        <option>
-          10
-        </option>
-        <option>
-          16
-        </option>
-        <option>
-          20
-        </option>
-      </select>
-      <span class="font-weight-bold text-deepdark"><span v-for="item in totalUserPage" :key="item" @click="paging(item)" style="cursor:pointer;">&nbsp;&nbsp;{{item}}&nbsp;&nbsp;&nbsp;</span></span>
-      <span class="font-weight-bold">총 : {{getUserNum}}</span>
+    
     </div>
     <Modal
       v-if="displayModal=='block'"

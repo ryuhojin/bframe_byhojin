@@ -28,5 +28,19 @@
     "title":"파일업로드",
     "name":"Upload",
     "path":"upload"
+},
+{
+    "id":6,
+    "parentUid":2,
+    "title":"하프레이아웃",
+    "name":"LayoutHalf",
+    "path":"layouthalf"
+},
+{
+    "id":7,
+    "parentUid":2,
+    "title":"드래그엔드롭",
+    "name":"DragandDrop",
+    "path":"draganddrop"
 }
 ]

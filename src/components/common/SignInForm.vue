@@ -1,13 +1,23 @@
 <template>
   <div
-    class="row vh-100 vw-100 m-0 justify-content-end align-items-center bg-light"
+    class="row vh-100 vw-100 m-0 justify-content-between align-items-center bg-light"
     :style="{
       'background-image': 'url(' + require('@/image/wall2.jpg') + ')',
       'background-size': 'cover'
     }"
   >
+    <div class="row vh-60 col-xl-8 ml-5">
+      <div class="d-flex flex-column vh-40 col-xl-12">
+              
+      </div>
+      <div class="row vh-20 col-xl-12 justify-content-around">
+        <div class="row vh-20 col-xl-3 shadow border border-white rounded"></div>
+        <div class="row vh-20 col-xl-3 shadow border border-white rounded"></div>
+        <div class="row vh-20 col-xl-3 shadow border border-white rounded"></div>
+      </div>
+    </div>
     <div
-      class="row vh-60 col-xl-3 col-md-5 col-xs-12 bg-light shadow justify-content-center align-items-center rounded mr-5"
+      class="row vh-60 col-xl-3 bg-light shadow justify-content-center align-items-center rounded mr-5"
     >
       <div class="row col-12 justify-content-center">
         <div class="row col-12 justify-content-center mt-5">
@@ -55,7 +65,7 @@
 <script>
 import Config from "@/config";
 import Auth from "@/api/common/Auth";
-import { validatePassword } from "@/utils/validation";
+import { validationPasswordSpecial } from "@/utils/validation";
 import messagebox from "@/api/common/MessageBox";
 export default {
   name: "SignIn",
@@ -106,8 +116,8 @@ export default {
       if (!this.userPw) {
         this.error.content.push("비밀번호가 비어있습니다.");
         i++;
-      } else if (!validatePassword(this.userPw)) {
-        this.error.content.push("비밀번호가 8자 이상입니다.");
+      } else if (!validationPasswordSpecial(this.userPw)) {
+        this.error.content.push("비밀번호가 잘못되었습니다.");
         i++;
       }
       if (i > 0) {
