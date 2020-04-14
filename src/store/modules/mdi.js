@@ -29,7 +29,16 @@ export default{
                     break
                 }
             }
-        }
+        },
+        MOVE_ITEM:(state,payload)=>{
+            if(payload.to===-1)
+            {
+                state.visitedViews.splice(payload.from,1);
+            }else{
+                state.visitedViews.splice(payload.to,0,state.visitedViews.splice(payload.from,1)[0]);
+            }
+            
+        },
     },
     actions:{
         ADD_VISITED_VIEW: (state, view) => {
@@ -42,11 +51,17 @@ export default{
                     visitedViews: state.state.visitedViews
                 })
             })
+        },
+        MOVE_ITEM:(state,view)=>{
+            state.commit('MOVE_ITEM',view)
         }
     },
     getters:{
         showTagsView: state => {
             return state.settings.isShowTagsView
+        },
+        getVisitedView:state=>{
+            return state.visitedViews
         },
         getCachedViewNames: state => {
             let cachedViewNames = [], i, view

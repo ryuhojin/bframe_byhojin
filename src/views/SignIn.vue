@@ -1,5 +1,8 @@
 <template>
   <div class="container-fluid p-0">
+    <div>
+      <span></span>
+    </div>
     <SignInForm />
   </div>
 </template>

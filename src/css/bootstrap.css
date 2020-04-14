@@ -1393,7 +1393,10 @@ pre {
   .table-hover .table-primary:hover > td,
   .table-hover .table-primary:hover > th {
     background-color: #9fcdff; }
-
+    .splitpanes--vertical > .splitpanes__splitter{
+      width:0.5vw !important;
+      cursor:pointer;
+    }
 .table-secondary,
 .table-secondary > th,
 .table-secondary > td {

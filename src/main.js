@@ -7,12 +7,15 @@ import VueLodash from 'vue-lodash'
 import lodash from 'lodash'
 import store from '@/store'
 import 'babel-polyfill'; 
-import Config from '@/config'
-import axios from 'axios'
+import i18n from './locales'
+
+
+
 Vue.config.productionTip = false
 Vue.use(VueLodash, {lodash: lodash })
 /* eslint-disable no-new */
 new Vue({
+  i18n,
   store,
   router,
   render: h => h(App)
