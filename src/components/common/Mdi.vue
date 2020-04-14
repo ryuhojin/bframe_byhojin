@@ -16,7 +16,7 @@
         <router-link
           :to="tag.path"
           class="d-flex px-2 text-danger text-decoration-none align-items-center"
-          >{{ tag.title }}</router-link
+          >{{ $t("lang.common.lnb." + tag.name) }}</router-link
         >
         <span
           v-if="!isAttached(tag)"
@@ -33,7 +33,7 @@
         <router-link
           :to="tag.path"
           class="px-2 text-dark text-decoration-none align-items-center"
-          >{{ tag.title }}</router-link
+          >{{ $t("lang.common.lnb." + tag.name) }}</router-link
         >
         <span
           v-if="!isAttached(tag)"
@@ -48,7 +48,7 @@
 </template>
 <script>
 import common from "@/api/common/CommonApi";
-import {mapGetters} from 'vuex'
+import { mapGetters } from "vuex";
 export default {
   data: function() {
     return { dragging: -1 };
@@ -122,20 +122,19 @@ export default {
       }
     },
     dragStart(from) {
-        this.dragging = from; 
+      this.dragging = from;
     },
     dragEnd() {
       this.dragging = -1;
     },
     dragFinish(to) {
-        this.moveItem(this.dragging, to);
+      this.moveItem(this.dragging, to);
     },
     moveItem(from, to) {
-      if(from!==0&&to!==0)
-      {
+      if (from !== 0 && to !== 0) {
         var moving = { from: from, to: to };
         common.movingItem(moving);
-        }
+      }
     }
   }
 };

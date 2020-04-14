@@ -1,19 +1,20 @@
 <template>
   <div class="d-flex flex-column vw-13 vh-100 bg-deepdark">
     <div class="d-flex flex-row vw-13 vh-6 justify-content-center align-items-center">
-      <span class="text-bnkred h3">B.FRAME</span>
+      <span class="text-bnkred h3">{{$t('lang.common.title.first')}}{{$t('lang.common.title.second')}}</span>
     </div>
     <div class="d-flex flex-column vw-13 bg-deepdark" v-for="menu in menus" :key="menu.id">
       <div
         class="d-flex flex-row vw-13 vh-4 justify-content-around align-items-center bg-dark"
         v-if="menu.parentUid==1"
       >
-        <span class="text-white">{{menu.title}}</span>
+      
+        <span class="text-white">{{$t('lang.common.lnb.'+menu.name)}}</span>
         <span class="text-white">▽</span>
       </div>
       <div v-else class="d-flex flex-row vw-13 vh-4 justify-content-around align-items-center">
         <router-link :to="menu.path" class="text-decoration-none">
-          <span class="text-white" @click="addVisiedView(menu)">{{menu.title}}</span>
+          <span class="text-white" @click="addVisiedView(menu)">{{$t('lang.common.lnb.'+menu.name)}}</span>
         </router-link>
       </div>
     </div>
@@ -32,6 +33,7 @@ export default {
   created() {
     CommonApi.getMenus().then(response=>{
       this.menus = response.data;
+      console.log(response.data);
     })
   },
   methods: {

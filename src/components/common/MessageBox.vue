@@ -8,7 +8,7 @@
       <div
         class="vw-15 h3 font-weight-bold vh-5 d-flex flex-row justify-content-center align-items-center"
       >
-        <span>{{ getMessageBoxTitle }}</span>
+        <span>{{$t('lang.common.message.'+getMessageBoxTitle)}}</span>
       </div>
       <div
         class="vw-15 vh-9 d-flex flex-row justify-content-center align-items-center"
@@ -20,7 +20,7 @@
       <div
         class="vw-15 vh-5 d-flex flex-row justify-content-center align-items-center"
       >
-        <button class=" vw-8 btn btn-danger" @click="onConfirm">확인</button>
+        <button class=" vw-8 btn btn-danger" @click="onConfirm">{{$t('lang.common.message.confirm')}}</button>
       </div>
     </div>
   </div>

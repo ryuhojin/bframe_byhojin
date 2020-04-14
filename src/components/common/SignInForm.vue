@@ -11,9 +11,6 @@
               
       </div>
       <div class="row vh-20 col-xl-12 justify-content-around">
-        <div class="row vh-20 col-xl-3 shadow border border-white rounded"></div>
-        <div class="row vh-20 col-xl-3 shadow border border-white rounded"></div>
-        <div class="row vh-20 col-xl-3 shadow border border-white rounded"></div>
       </div>
     </div>
     <div
@@ -21,8 +18,8 @@
     >
       <div class="row col-12 justify-content-center">
         <div class="row col-12 justify-content-center mt-5">
-          <span class="font-weight-bold h2 text-bnkred">B.</span>
-          <span class="font-weight-bold h2 text-center">FRAME</span>
+          <span class="font-weight-bold h2 text-bnkred">{{$t('lang.common.title.first')}}</span>
+          <span class="font-weight-bold h2 text-center">{{$t('lang.common.title.second')}}</span>
         </div>
         <div class="row col-12 p-0">
           <input
@@ -30,7 +27,7 @@
             v-on:keyup.13="Login"
             v-model="userId"
             class="col-12 form-control form-control-lg mt-5"
-            placeholder="로그인 아이디"
+            :placeholder="$t('lang.common.signin.input.placeholder.userid')"
             autofocus
           />
           <input
@@ -38,35 +35,36 @@
             v-on:keyup.13="Login"
             v-model="userPw"
             class="col-12 form-control form-control-lg mt-3"
-            placeholder="당신의 비밀번호"
+            :placeholder="$t('lang.common.signin.input.placeholder.userpw')"
           />
         </div>
         <button
           class="col-12 btn btn-lg bg-bnkred text-white mt-3"
           @click="Login"
-        >
-          로그인
+        >{{$t('lang.common.signin.button.login')}}
         </button>
         <div class="col-12 justify-content-start p-0 mt-3 border-bottom">
           <input type="checkbox" id="userRemember" />
           <label for="userRemember" class="text-bnkdarkgray"
-            >로그인 아이디 저장</label
+            >{{$t('lang.common.signin.label.saving')}}</label
           >
         </div>
       </div>
       <div class="row col-12 justify-content-around">
-        <button class="btn btn-light vw-7 text-bnksilver">아이디 찾기</button>
-        <button class="btn vw-8 btn-light text-bnksilver">비밀번호 찾기</button>
-        <button class="btn vw-6 btn-light text-bnksilver">회원 가입</button>
+        <button class="btn btn-light vw-7 text-bnksilver">{{$t('lang.common.signin.button.findid')}}</button>
+        <button class="btn vw-8 btn-light text-bnksilver">{{$t('lang.common.signin.button.findpw')}}</button>
+        <button class="btn vw-6 btn-light text-bnksilver">{{$t('lang.common.signin.button.signup')}}</button>
       </div>
     </div>
   </div>
 </template>
 <script>
 import Config from "@/config";
+import codes from "@/api/admin/Code"
 import Auth from "@/api/common/Auth";
 import { validationPasswordSpecial } from "@/utils/validation";
 import messagebox from "@/api/common/MessageBox";
+import {mapGetters} from 'vuex'
 export default {
   name: "SignIn",
   data: function() {
@@ -75,17 +73,17 @@ export default {
       userPw: "Ghwk5268!!",
       comgrp: "08",
       error: {
-        title: "에러",
+        title: "error",
         content: []
       }
     };
   },
   methods: {
-    Login() {
+       Login() {
       if (this.checkForm()) {
         const params = { userId: this.userId, userPw: this.userPw }; //params객체에 아이디와 비밀번호 정보 입력
 
-        Auth.login().then(
+         Auth.login().then(
           response => {
             //로그인 API호출
             for (var i = 0; i < response.data.length; i++) {
@@ -94,6 +92,7 @@ export default {
                 response.data[i].userPw == params.userPw
               ) {
                 Auth.saveUser(params);
+                this.loadCode()
                 this.$router.push("main");
               }
             }
@@ -101,10 +100,12 @@ export default {
           error => {
             alert("로그인실패");
           }
-        );
+        )
       } else {
-        messagebox.openMessageBox(this.error);
+         messagebox.openMessageBox(this.error);
+
         this.error.content = [];
+        console.log("하위");
       }
     },
     checkForm() {
@@ -124,6 +125,16 @@ export default {
         return false;
       }
       return true;
+    },
+    loadCode() {
+      codes.findAll().then(
+        response => {
+          codes.setCodes(response.data);
+        },
+        error => {
+          alert("코드를가져오지 못했습니다.");
+        }
+      );
     }
   }
 };

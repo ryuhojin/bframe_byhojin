@@ -1,0 +1,135 @@
+{
+    "common":{
+        "title":{
+            "first":"B. ",
+            "second":"FRAME" 
+        },
+        "header":{
+            "logout":"LOGOUT"
+        },
+        "signin":{
+            "input":{
+                "placeholder":{
+                    "userid":"PLEASE PUT YOUR ID",
+                    "userpw":"PLEASE PUT YOUR PASSWORD",
+                    "username":"PLEASE PUT YOUR NAME"
+                }
+            },
+            "button":{
+                "login":"LOGIN",
+                "findid":"FIND ID",
+                "findpw":"FIND PW",
+                "signup":"SIGN UP"
+            },
+            "label":{
+                "saving":"SAVE LOGIN ID"
+            }
+        },
+        "message":{
+            "error":"ERROR",
+            "confirm":"CONFIRM",
+            "cancel":"CANCEL",
+            "password":"INCORRECT PASSWORD",
+            "id":"INCORRECT ID",
+            "empty":"Fill REQUIRED FIELDS"
+        },
+        "lnb":{
+            "Main":"Main",
+            "Admin":"Admin Page",
+            "User":"User Management",
+            "Code":"Code Management",
+            "Sample":"Sample Page",
+            "Upload":"File Upload",
+            "LayoutHalf":"Split Layout",
+            "DragandDrop":"Drag and Drop"
+        }
+    },
+    "Main":{
+        "title":"MAIN"
+    },
+    "User":{
+        "label":{
+            "title":"USER MANAGEMENT",
+            "app":"APP",
+            "groupname":"GROUP NAME",
+            "useyn":"USE",
+            "role":"ROLE"
+        },
+        "button":{
+            "search":"SERACH",
+            "create":"CREATE",
+            "update":"UPDATE",
+            "delete":"DELETE",
+            "submit":"SUBMIT",
+            "cancel":"CANCEL"
+        },
+        "table":{
+            "id":"ID",
+            "name":"NAME",
+            "password":"PASSWORD",
+            "role":"ROLE",
+            "groupname":"GROUP NAME",
+            "partname":"PART NAME",
+            "useyn":"USE",
+            "amount":"TOTAL"
+        },
+        "form":{
+            "UPDATE":"UPDATE",
+            "INSERT":"CREATE",
+            "id":"ID",
+            "appid":"APPUID",
+            "userid":"USERID",
+            "userpw":"USERPW",
+            "name":"NAME",
+            "groupid":"GROUPID",
+            "groupname":"GROUPNAME",
+            "departmentid":"DEPARTMENT ID",
+            "departmentname":"DEPARTMENT NAME",
+            "useyn":"USEYN",
+            "role":"ROLE"
+        }
+    },
+    "Code":{
+        "label":{
+            "title":"CODE MANAGEMENT",
+            "code":"CODE",
+            "codename":"CODE NAME",
+            "useyn":"USE",
+            "codevalue":"CODE VALUE"
+        },
+        "button":{
+            "search":"SERACH",
+            "create":"CREATE",
+            "update":"UPDATE",
+            "delete":"DELETE",
+            "submit":"SUBMIT",
+            "cancel":"CANCEL"
+        },
+        "table":{
+            "fst":"FST_RG_DTTI",
+            "lt":"LT_CH_DTTI",
+            "version":"VERSION",
+            "code":"CODE",
+            "description":"DESCRIPTION",
+            "codename":"CODE NAME",
+            "codetext":"CODE TEXT",
+            "useyn":"USE",
+            "codevalue":"CODE VALUE",
+            "amount":"TOTAL"
+        },
+        "form":{
+            "UPDATE":"UPDATE",
+            "INSERT":"CREATE",
+            "id":"ID",
+            "fst":"FST_RG_DTTI",
+            "lt":"LT_CH_DTTI",
+            "version":"VERSION",
+            "code":"CODE",
+            "description":"DESCRIPTION",
+            "codename":"CODE NAME",
+            "codetext":"CODE TEXT",
+            "useyn":"USE",
+            "codevalue":"CODE VALUE"
+        }
+    }
+}

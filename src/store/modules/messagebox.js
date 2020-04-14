@@ -7,7 +7,7 @@ export default {
   state: {
     boxVisible: "none",
     title: null,
-    content: null
+    content: null,
   },
   mutations: {
     OPEN_MESSAGEBOX: (state, payload) => {

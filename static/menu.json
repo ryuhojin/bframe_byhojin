@@ -1,12 +1,14 @@
 [{
     "id":1,
     "parentUid":1,
+    "name":"Admin",
     "title":"관리자화면"
 },
 {
     "id":2,
     "parentUid":2,
     "title":"사용자 관리",
+    "icon":"x-fa fa-folder-o",
     "name":"User",
     "path":"user"
 },
@@ -14,18 +16,21 @@
     "id":3,
     "parentUid":2,
     "title":"코드 관리",
+    "icon":"x-fa fa-folder-o",
     "name":"Code",
     "path":"code"
 },
 {
     "id":4,
     "parentUid":1,
+    "name":"Sample",
     "title":"샘플"
 },
 {
     "id":5,
     "parentUid":2,
     "title":"파일업로드",
+    "icon":"x-fa fa-folder-o",
     "name":"Upload",
     "path":"upload"
 },
@@ -33,6 +38,7 @@
     "id":6,
     "parentUid":2,
     "title":"하프레이아웃",
+    "icon":"x-fa fa-folder-o",
     "name":"LayoutHalf",
     "path":"layouthalf"
 },
@@ -40,6 +46,7 @@
     "id":7,
     "parentUid":2,
     "title":"드래그엔드롭",
+    "icon":"x-fa fa-folder-o",
     "name":"DragandDrop",
     "path":"draganddrop"
 }
