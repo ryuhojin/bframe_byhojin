@@ -10,7 +10,6 @@ import 'babel-polyfill';
 import i18n from './locales'
 
 
-
 Vue.config.productionTip = false
 Vue.use(VueLodash, {lodash: lodash })
 /* eslint-disable no-new */

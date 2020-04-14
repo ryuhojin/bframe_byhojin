@@ -27,3 +27,7 @@ export function wonwithCommas(x){
 }
 
 /** */
+export function arraytoString(x)
+{
+	return x.toString();
+}
