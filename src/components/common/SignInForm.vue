@@ -57,6 +57,7 @@
       </div>
     </div>
   </div>
+  
 </template>
 <script>
 import Config from "@/config";
@@ -64,8 +65,13 @@ import codes from "@/api/admin/Code"
 import Auth from "@/api/common/Auth";
 import { validationPasswordSpecial } from "@/utils/validation";
 import {mapGetters} from 'vuex'
+import EventBus from "@/utils/EventBus";
+import msg from "../common/MessageDialog"
 export default {
   name: "SignIn",
+  components:{
+    msg
+  },
   data: function() {
     return {
       userId: "admin",
@@ -101,11 +107,12 @@ export default {
           }
         )
       } else {
+        this.$root.$emit('hi')
         this.error.title="error"
         this.errorinit();
-        console.log("하위");
       }
     },
+    
     checkForm() {
       var i = 0;
       if (!this.userId) {

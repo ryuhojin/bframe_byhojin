@@ -14,7 +14,6 @@ export default new Vuex.Store({
         common,
         user,
         code,
-        mdi,
-        messagebox
+        mdi
     }
 })

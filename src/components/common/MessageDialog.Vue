@@ -1,11 +1,13 @@
 <template>
-  <div v-show="dialog">
-    <button @click="accept('success')">
-      확인
-    </button>
-    <button @click="cancel('cancel')">
-      취소
-    </button>
+  <div v-show="dialog" style="position:fixed; z-index:999; width:100vw; height:100vh; display:flex; justify-content:center; align-items:center; background:rgba(255,255,255,0.5)">
+    <div style="display:flex; background-color:#fff; height:10vh; align-items:flex-end;">
+      <button @click="accept('success')">
+        확인
+      </button>
+      <button @click="cancel('cancel')">
+        취소
+      </button>
+    </div>
   </div>
 </template>
 <script>
