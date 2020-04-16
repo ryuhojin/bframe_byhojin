@@ -13,56 +13,53 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="user in getuserlist"
-      :key="user.id"
-      >
-        <th scope="row">{{user.id}}</th>
-        <td>{{user.userId}}</td>
-        <td>{{user.name}}</td>
-        <td>{{user.userPw}}</td>
-        <td>{{user.role}}</td>
-        <td>{{user.groupName}}</td>
-        <td>{{user.departmentName}}</td>
-        <td>{{user.useYN}}</td>
+      <tr v-for="user in getuserlist" :key="user.id">
+        <th scope="row">{{ user.id }}</th>
+        <td>{{ user.userId }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.userPw }}</td>
+        <td>{{ user.role }}</td>
+        <td>{{ user.groupName }}</td>
+        <td>{{ user.departmentName }}</td>
+        <td>{{ user.useYN }}</td>
       </tr>
     </tbody>
   </table>
 </template>
 <script>
-import {mapGetters} from "vuex"
+import { mapGetters } from "vuex";
 export default {
-  data:function(){
-    return{
-      pagenum:1,
-      pageview:16
-    }
+  data: function() {
+    return {
+      pagenum: 1,
+      pageview: 16
+    };
   },
-  computed:{
+  computed: {
     ...mapGetters(["userdata"]),
-    getuserlist()
-    {
-      return this.userdata(this.pagenum,this.pageview)
+    getuserlist() {
+      return this.userdata(this.pagenum, this.pageview);
     }
   }
-}
+};
 </script>
 <style scoped>
-table{
-  margin:0;
+table {
+  margin: 0;
 }
 tr {
-width: 100%;
-display: inline-table;
-table-layout: fixed;
+  width: 100%;
+  display: inline-table;
+  table-layout: fixed;
 }
-tbody{
-  overflow-y: scroll;      
-  height:49vh;           
-  width:100%;
-  display:block;
+tbody {
+  overflow-y: scroll;
+  height: 49vh;
+  width: 100%;
+  display: block;
   scrollbar-width: none;
 }
-tbody::-webkit-scrollbar{
-    display:none;
+tbody::-webkit-scrollbar {
+  display: none;
 }
 </style>

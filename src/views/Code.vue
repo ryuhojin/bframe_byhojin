@@ -1,7 +1,9 @@
 <template>
   <div class="d-flex flex-column vw-87 vh-89 align-items-center">
     <div class="d-flex flex-row vw-86 vh-5 bg-white align-items-center">
-      <span class="px-2 font-weight-bold h5">{{$t('lang.Code.label.title')}}</span>
+      <span class="px-2 font-weight-bold h5">{{
+        $t("lang.Code.label.title")
+      }}</span>
     </div>
     <div
       class="d-flex flex-row vw-86 vh-6 bg-white mt-1 align-items-center p-0"
@@ -12,7 +14,9 @@
         <div
           class="d-flex flex-row vw-21 vh-5 justify-content-between align-items-center px-5"
         >
-          <label for="CODE" class="font-weight-bold">{{$t('lang.Code.label.code')}}</label>
+          <label for="CODE" class="font-weight-bold">{{
+            $t("lang.Code.label.code")
+          }}</label>
           <select
             v-model="searchForm.CODE"
             id="CODE"
@@ -24,7 +28,9 @@
         <div
           class="d-flex flex-row vw-21 vh-5 justify-content-between align-items-center px-5"
         >
-          <label for="CODE_NAME" class="font-weight-bold">{{$t('lang.Code.label.codename')}}</label>
+          <label for="CODE_NAME" class="font-weight-bold">{{
+            $t("lang.Code.label.codename")
+          }}</label>
           <select
             v-model="searchForm.CODE_NAME"
             id="CODE_NAME"
@@ -36,7 +42,9 @@
         <div
           class="d-flex flex-row vw-22 vh-5 justify-content-between align-items-center px-5"
         >
-          <label for="USE_YN" class="font-weight-bold">{{$t('lang.Code.label.useyn')}}</label>
+          <label for="USE_YN" class="font-weight-bold">{{
+            $t("lang.Code.label.useyn")
+          }}</label>
           <select
             v-model="searchForm.USE_YN"
             id="USE_YN"
@@ -50,7 +58,9 @@
         <div
           class="d-flex flex-row vw-22 vh-5 justify-content-between align-items-center px-5"
         >
-          <label for="CODE_VALUE" class="font-weight-bold">{{$t('lang.Code.label.codevalue')}}</label>
+          <label for="CODE_VALUE" class="font-weight-bold">{{
+            $t("lang.Code.label.codevalue")
+          }}</label>
           <input
             type="text"
             v-model="searchForm.CODE_VALUE"
@@ -67,25 +77,25 @@
         class="btn btn-deepdark vw-5 vh-4 font-weight-bold mr-2 p-0"
         @click="search(searchForm)"
       >
-        {{$t('lang.Code.button.search')}}
+        {{ $t("lang.Code.button.search") }}
       </button>
       <button
         class="btn btn-deepdark vw-5 vh-4 font-weight-bold mr-2 p-0"
         @click="showForm('INSERT')"
       >
-        {{$t('lang.Code.button.create')}}
+        {{ $t("lang.Code.button.create") }}
       </button>
       <button
         class="btn btn-deepdark vw-5 vh-4 font-weight-bold mr-2 p-0"
         @click="showForm('UPDATE')"
       >
-        {{$t('lang.Code.button.update')}}
+        {{ $t("lang.Code.button.update") }}
       </button>
       <button
         class="btn btn-deepdark vw-5 vh-4 font-weight-bold mr-2 p-0"
         @click="remove"
       >
-        {{$t('lang.Code.button.delete')}}
+        {{ $t("lang.Code.button.delete") }}
       </button>
     </div>
     <div
@@ -107,63 +117,63 @@
               style="text-align:center; vertical-align: middle;"
               class="p-0 m-0"
             >
-              {{$t('lang.Code.table.fst')}}
+              {{ $t("lang.Code.table.fst") }}
             </th>
             <th
               scope="col"
               style="text-align:center; vertical-align: middle;"
               class="p-0 m-0"
             >
-              {{$t('lang.Code.table.lt')}}
+              {{ $t("lang.Code.table.lt") }}
             </th>
             <th
               scope="col"
               style="text-align:center; vertical-align: middle;"
               class="p-0 m-0"
             >
-              {{$t('lang.Code.table.version')}}
+              {{ $t("lang.Code.table.version") }}
             </th>
             <th
               scope="col"
               style="text-align:center; vertical-align: middle;"
               class="p-0 m-0"
             >
-              {{$t('lang.Code.table.code')}}
+              {{ $t("lang.Code.table.code") }}
             </th>
             <th
               scope="col"
               style="text-align:center; vertical-align: middle;"
               class="p-0 m-0"
             >
-              {{$t('lang.Code.table.description')}}
+              {{ $t("lang.Code.table.description") }}
             </th>
             <th
               scope="col"
               style="text-align:center; vertical-align: middle;"
               class="p-0 m-0"
             >
-              {{$t('lang.Code.table.codename')}}
+              {{ $t("lang.Code.table.codename") }}
             </th>
             <th
               scope="col"
               style="text-align:center; vertical-align: middle;"
               class="p-0 m-0"
             >
-              {{$t('lang.Code.table.codetext')}}
+              {{ $t("lang.Code.table.codetext") }}
             </th>
             <th
               scope="col"
               style="text-align:center; vertical-align: middle;"
               class="p-0 m-0"
             >
-              {{$t('lang.Code.table.useyn')}}
+              {{ $t("lang.Code.table.useyn") }}
             </th>
             <th
               scope="col"
               style="text-align:center; vertical-align: middle;"
               class="p-0 m-0"
             >
-              {{$t('lang.Code.table.codevalue')}}
+              {{ $t("lang.Code.table.codevalue") }}
             </th>
           </tr>
         </thead>
@@ -266,7 +276,9 @@
           >&nbsp;&nbsp;{{ item }}&nbsp;&nbsp;&nbsp;</span
         ></span
       >
-      <span class="font-weight-bold">{{$t('lang.Code.table.amount')}} : {{ getCodeNum }}</span>
+      <span class="font-weight-bold"
+        >{{ $t("lang.Code.table.amount") }} : {{ getCodeNum }}</span
+      >
     </div>
     <Modal
       v-if="displayModal == 'block'"
@@ -331,17 +343,22 @@ export default {
       "getCodeNum",
       "totalCodePage"
     ]),
-    selectUseYn:function() {
+    selectUseYn: function() {
       return this.getCodeList("COM002");
     },
-    getTotalCodePage:function() {
+    getTotalCodePage: function() {
       return this.totalCodePage(this.pageview);
     },
-    getcodeslist:function() {
+    getcodeslist: function() {
       return this.codes(this.pagenum, this.pageview);
     },
-    orderBySort:function(){ //아이디랑 CODE SORT기준으로 정렬 하는 함수
-      return _.orderBy(this.getcodeslist,['ID','CODE','SORT'],['asc','asc','asc'])
+    orderBySort: function() {
+      //아이디랑 CODE SORT기준으로 정렬 하는 함수
+      return _.orderBy(
+        this.getcodeslist,
+        ["ID", "CODE", "SORT"],
+        ["asc", "asc", "asc"]
+      );
     }
   },
   methods: {

@@ -7,19 +7,20 @@
     }"
   >
     <div class="row vh-60 col-xl-8 ml-5">
-      <div class="d-flex flex-column vh-40 col-xl-12">
-              
-      </div>
-      <div class="row vh-20 col-xl-12 justify-content-around">
-      </div>
+      <div class="d-flex flex-column vh-40 col-xl-12"></div>
+      <div class="row vh-20 col-xl-12 justify-content-around"></div>
     </div>
     <div
       class="row vh-60 col-xl-3 bg-light shadow justify-content-center align-items-center rounded mr-5"
     >
       <div class="row col-12 justify-content-center">
         <div class="row col-12 justify-content-center mt-5">
-          <span class="font-weight-bold h2 text-bnkred">{{$t('lang.common.title.first')}}</span>
-          <span class="font-weight-bold h2 text-center">{{$t('lang.common.title.second')}}</span>
+          <span class="font-weight-bold h2 text-bnkred">{{
+            $t("lang.common.title.first")
+          }}</span>
+          <span class="font-weight-bold h2 text-center">{{
+            $t("lang.common.title.second")
+          }}</span>
         </div>
         <div class="row col-12 p-0">
           <input
@@ -41,35 +42,41 @@
         <button
           class="col-12 btn btn-lg bg-bnkred text-white mt-3"
           @click="Login"
-        >{{$t('lang.common.signin.button.login')}}
+        >
+          {{ $t("lang.common.signin.button.login") }}
         </button>
         <div class="col-12 justify-content-start p-0 mt-3 border-bottom">
           <input type="checkbox" id="userRemember" />
-          <label for="userRemember" class="text-bnkdarkgray"
-            >{{$t('lang.common.signin.label.saving')}}</label
-          >
+          <label for="userRemember" class="text-bnkdarkgray">{{
+            $t("lang.common.signin.label.saving")
+          }}</label>
         </div>
       </div>
       <div class="row col-12 justify-content-around">
-        <button class="btn btn-light vw-7 text-bnksilver">{{$t('lang.common.signin.button.findid')}}</button>
-        <button class="btn vw-8 btn-light text-bnksilver">{{$t('lang.common.signin.button.findpw')}}</button>
-        <button class="btn vw-6 btn-light text-bnksilver">{{$t('lang.common.signin.button.signup')}}</button>
+        <button class="btn btn-light vw-7 text-bnksilver">
+          {{ $t("lang.common.signin.button.findid") }}
+        </button>
+        <button class="btn vw-8 btn-light text-bnksilver">
+          {{ $t("lang.common.signin.button.findpw") }}
+        </button>
+        <button class="btn vw-6 btn-light text-bnksilver">
+          {{ $t("lang.common.signin.button.signup") }}
+        </button>
       </div>
     </div>
   </div>
-  
 </template>
 <script>
 import Config from "@/config";
-import codes from "@/api/admin/Code"
+import codes from "@/api/admin/Code";
 import Auth from "@/api/common/Auth";
 import { validationPasswordSpecial } from "@/utils/validation";
-import {mapGetters} from 'vuex'
+import { mapGetters } from "vuex";
 import EventBus from "@/utils/EventBus";
-import msg from "../common/MessageDialog"
+import msg from "../common/MessageDialog";
 export default {
   name: "SignIn",
-  components:{
+  components: {
     msg
   },
   data: function() {
@@ -84,11 +91,11 @@ export default {
     };
   },
   methods: {
-      Login() {
+    Login() {
       if (this.checkForm()) {
         const params = { userId: this.userId, userPw: this.userPw }; //params객체에 아이디와 비밀번호 정보 입력
 
-         Auth.login().then(
+        Auth.login().then(
           response => {
             //로그인 API호출
             for (var i = 0; i < response.data.length; i++) {
@@ -97,7 +104,7 @@ export default {
                 response.data[i].userPw == params.userPw
               ) {
                 Auth.saveUser(params);
-                this.loadCode()
+                this.loadCode();
                 this.$router.push("main");
               }
             }
@@ -105,14 +112,14 @@ export default {
           error => {
             alert("로그인실패");
           }
-        )
+        );
       } else {
-        this.$root.$emit('hi')
-        this.error.title="error"
+        this.$root.$emit("hi");
+        this.error.title = "error";
         this.errorinit();
       }
     },
-    
+
     checkForm() {
       var i = 0;
       if (!this.userId) {
@@ -141,9 +148,9 @@ export default {
         }
       );
     },
-    errorinit(){
-      this.error.title="";
-      this.error.content=[];
+    errorinit() {
+      this.error.title = "";
+      this.error.content = [];
     }
   }
 };
