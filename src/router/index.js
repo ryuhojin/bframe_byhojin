@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Auth from '@/api/common/Auth'
-
+// import VueCookies from 'vue-cookies';
 
 Vue.use(VueRouter);
 const routes = [
@@ -27,6 +27,17 @@ const routes = [
   { path: '/draganddrop', name: 'DragandDrop', component: () => import(/* webpackChunkName: "views" */'@/views/DragandDrop'), beforeEnter, meta: { title: '드래그앤드롭' } },
 
 ]
+
+// 로그인 유지
+// router.beforeEach( async(to, from, next) => {
+//   if(VueCookies.get('token')===null && VueCookies.get('refresh_token') !== null){
+//     await refreshToken();//토큰재발급
+//   }
+//   if (to.matched.some(record => record.meta.unauthorized) || VueCookies.get('token')){
+//     return next(); //다음페이지
+//   }
+//     return next('/login'); //로그인
+// })
 
 function beforeEnter(to, from, next) {
   if (!Auth.isLoggedIn()) {

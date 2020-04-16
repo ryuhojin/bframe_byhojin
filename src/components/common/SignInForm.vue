@@ -73,17 +73,17 @@ export default {
       userPw: "Ghwk5268!!",
       comgrp: "08",
       error: {
-        title: "error",
+        title: "",
         content: []
       }
     };
   },
   methods: {
-       Login() {
+       async Login() {
       if (this.checkForm()) {
         const params = { userId: this.userId, userPw: this.userPw }; //params객체에 아이디와 비밀번호 정보 입력
 
-         Auth.login().then(
+         await Auth.login().then(
           response => {
             //로그인 API호출
             for (var i = 0; i < response.data.length; i++) {
@@ -102,9 +102,9 @@ export default {
           }
         )
       } else {
-         messagebox.openMessageBox(this.error);
-
-        this.error.content = [];
+        this.error.title="error"
+        messagebox.openMessageBox(this.error);
+        this.errorinit();
         console.log("하위");
       }
     },
@@ -135,6 +135,10 @@ export default {
           alert("코드를가져오지 못했습니다.");
         }
       );
+    },
+    errorinit(){
+      this.error.title="";
+      this.error.content=[];
     }
   }
 };

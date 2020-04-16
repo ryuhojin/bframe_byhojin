@@ -36,7 +36,17 @@ export default {
       return state.boxVisible;
     },
     getMessageBoxContent: state => {
-      return state.content;
+      var message ="";
+      if(state.content!==null)
+      {
+        for(var i=0; i<state.content.length;i++)
+        {
+          message += state.content[i]
+        }
+        return message;
+      }
+      return state.content
+      
     }
   }
 };
