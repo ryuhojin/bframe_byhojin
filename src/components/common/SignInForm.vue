@@ -63,7 +63,6 @@ import Config from "@/config";
 import codes from "@/api/admin/Code"
 import Auth from "@/api/common/Auth";
 import { validationPasswordSpecial } from "@/utils/validation";
-import messagebox from "@/api/common/MessageBox";
 import {mapGetters} from 'vuex'
 export default {
   name: "SignIn",
@@ -79,11 +78,11 @@ export default {
     };
   },
   methods: {
-       async Login() {
+      Login() {
       if (this.checkForm()) {
         const params = { userId: this.userId, userPw: this.userPw }; //params객체에 아이디와 비밀번호 정보 입력
 
-         await Auth.login().then(
+         Auth.login().then(
           response => {
             //로그인 API호출
             for (var i = 0; i < response.data.length; i++) {
@@ -103,7 +102,6 @@ export default {
         )
       } else {
         this.error.title="error"
-        messagebox.openMessageBox(this.error);
         this.errorinit();
         console.log("하위");
       }

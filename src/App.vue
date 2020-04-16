@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="d-flex flex-row vw-100 vh-100">
-    <messagebox />
+    <messagebox ref="dig"/>
     <div style="position:fixed; right:0; bottom:0; z-index:999;">
       <button
         type="button"
@@ -29,8 +29,7 @@ import common from "./api/common/CommonApi";
 import Lnb from "./components/common/Lnb";
 import Head from "./components/common/Header";
 import Mdi from "./components/common/Mdi";
-import messagebox from "./components/common/MessageBox";
-import messageboxs from "@/api/common/MessageBox";
+import messagebox from "./components/common/MessageDialog";
 import { mapGetters } from "vuex";
 
 export default {
@@ -55,6 +54,13 @@ export default {
       else{
         this.$i18n.locale="ko"
       }
+    },
+    openDialog(){
+      this.$refs.dig.open().then(res=>{
+        console.log("성공")
+      }).catch(res=>{
+        console.log("실패")
+      });
     }
   }
 };

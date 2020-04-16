@@ -6,7 +6,6 @@ import common from './modules/common'
 import user from './modules/user'
 import code from './modules/code'
 import mdi from './modules/mdi'
-import messagebox from './modules/messagebox'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
