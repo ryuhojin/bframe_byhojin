@@ -1,5 +1,15 @@
 /** 날짜포맷터 */
-export function formatDate(value) {
+export function formatDate(value)
+{
+	const date = new Date(value);
+	const year = date.getFullYear();
+	let month = date.getMonth()+1;
+	month = month > 9?month : `0${month}`;
+	const day = date.getDate();
+	return `${year}/${month}/${day}`;
+}
+
+export function formatDatewithTime(value) {
 	const date = new Date(value);
 	const year = date.getFullYear();
 	let month = date.getMonth() + 1;
@@ -10,6 +20,8 @@ export function formatDate(value) {
 	const minutes = date.getMinutes();
 	return `${year}-${month}-${day} ${hours}:${minutes}`;
 }
+
+
 
 /** 천단위 콤마표시 */
 export function numberWithCommas(x) {
@@ -26,8 +38,3 @@ export function wonwithCommas(x){
 	return "￦"+x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-/** */
-export function arraytoString(x)
-{
-	return x.toString();
-}

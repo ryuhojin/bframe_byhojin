@@ -6,6 +6,11 @@
         },
         "header":{
             "logout":"LOGOUT"
+        },"msg":{
+            "button":{
+                "confirm":"confirm",
+                "cancel":"cancel"
+            }
         },
         "signin":{
             "input":{

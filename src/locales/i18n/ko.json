@@ -7,6 +7,12 @@
         "header":{
             "logout":"로그아웃"
         },
+        "msg":{
+            "button":{
+                "confirm":"확인",
+                "cancel":"취소"
+            }
+        },
         "signin":{
             "input":{
                 "placeholder":{

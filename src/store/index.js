@@ -6,6 +6,7 @@ import common from './modules/common'
 import user from './modules/user'
 import code from './modules/code'
 import mdi from './modules/mdi'
+import message from './modules/message'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -14,6 +15,7 @@ export default new Vuex.Store({
         common,
         user,
         code,
-        mdi
+        mdi,
+        message
     }
 })

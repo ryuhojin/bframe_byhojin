@@ -74,8 +74,8 @@ export default {
   },
   data: function() {
     return {
-      userId: "admin",
-      userPw: "Ghwk5268!!",
+      userId: "",
+      userPw: "",
       comgrp: "08",
       error: {
         title: "",

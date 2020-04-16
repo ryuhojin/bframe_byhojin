@@ -54,14 +54,14 @@ export default {
     ]),
     key() {
       return this.$route.name;
-    }
+    },
   },
   methods: {
     openDialog() {
       this.$refs.dig
         .open()
         .then(res => {
-          console.log("성공");
+          console.log("성공"+res);
         })
         .catch(res => {
           console.log("실패");
