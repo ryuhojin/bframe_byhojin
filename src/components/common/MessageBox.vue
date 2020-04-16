@@ -14,7 +14,7 @@
         class="vw-15 vh-9 d-flex flex-row justify-content-center align-items-center"
       >
         <div>
-          {{ getMessageBoxContent}}
+          {{ getMessageBoxContent }}
         </div>
       </div>
       <div
