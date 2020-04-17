@@ -9,25 +9,25 @@ export default {
     content:null,
   },
   mutations: {
-    ADD_ERR: (state, view) => {
+    ADD_MESSAGE: (state, view) => {
       state.content=view.content;
       state.title = view.title;
     },
-    INIT_ERR: state => {
+    INIT_MESSAGE: state => {
       state.content=null;
       state.title="";
     }
   },
   actions: {
-    ADD_ERR: (state, view) => {
-      state.commit("ADD_ERR", view);
+    ADD_MESSAGE: (state, view) => {
+      state.commit("ADD_MESSAGE", view);
     },
-    INIT_ERR: state => {
-      state.commit("INIT_ERR");
+    INIT_MESSAGE: state => {
+      state.commit("INIT_MESSAGE");
     }
   },
   getters: {
-    getErrors: state => {
+    getMessage: state => {
       return state;
     }
   }

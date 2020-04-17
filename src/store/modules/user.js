@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
+import mdi from './mdi'
 Vue.use(Vuex);
 
 export default {
@@ -14,7 +14,7 @@ export default {
       state.menus = null;
       state.codes = null;
       state.messages = null;
-      state.visitedViews = [];
+      mdi.state.visitedViews = [];
     },
     SAVE_USER: (state, payload) => {
       state.user = payload;

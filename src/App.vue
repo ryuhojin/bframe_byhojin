@@ -61,10 +61,10 @@ export default {
       this.$refs.dig
         .open()
         .then(res => {
-          message.initErr();
+          message.initMessage();
         })
         .catch(res => {
-          message.initErr();
+          message.initMessage();
         });
     },
     changeLocale: function(locale) {

@@ -115,7 +115,7 @@ export default {
           }
         );
       } else {
-        message.addErr({'title':'error','content':this.error.content})
+        message.addMessage({'title':'error','content':this.error.content})
         this.$root.$emit("openDialog");
         this.errorinit();
       }

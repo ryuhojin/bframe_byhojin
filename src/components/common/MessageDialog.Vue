@@ -5,19 +5,19 @@
   >
     <div
       class="flex-column"
-      style="display:flex; background-color:#fff; width:15vw; height:20vh; align-items:center;"
+      style="display:flex; background-color:#fff; width:auto; height:auto; align-items:center;"
     >
-      <div class="vh-4">
+      <div>
         {{ $t("lang.common.message." + getErrors.title) }}
       </div>
-      <div class="vh-10 vw-15 bg-light d-flex flex-column justify-content-center align-items-center">
+      <div class="ml-2 mr-2 bg-light d-flex flex-column justify-content-center align-items-center">
           <span v-for="(error,i) in getErrors.content" :key="i">{{ $t("lang.common.message."+error) }}<br></span>
       </div>
-      <div class="vh-6 vw-15 d-flex flex-row justify-content-around align-items-center">
-        <button class="btn btn-success" @click="accept('success')">
+      <div class=" d-flex p-1 flex-row justify-content-around align-items-center">
+        <button class="btn btn-sm btn-success mr-2" @click="accept('success')">
           {{ $t("lang.common.message.button.confirm") }}
         </button>
-        <button class="btn btn-outline text-danger" @click="cancel('cancel')">
+        <button class="btn btn-sm btn-outline ml-2 text-danger" @click="cancel('cancel')">
           {{ $t("lang.common.message.button.cancel") }}
         </button>
       </div>
@@ -35,7 +35,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getErrors"])
+    ...mapGetters(["getMessage"])
   },
   methods: {
     open() {
