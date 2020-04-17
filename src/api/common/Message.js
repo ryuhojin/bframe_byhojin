@@ -1,11 +1,11 @@
 import store from '@/store'
 
 export default {
-    addErr(params) {
-        return store.dispatch('ADD_ERR', params)
+    addMessage(params) {
+        return store.dispatch('ADD_MESSAGE', params)
     },
-    initErr()
+    initMessage()
     {
-        return store.dispatch('INIT_ERR')
+        return store.dispatch('INIT_MESSAGE')
     }
 }
