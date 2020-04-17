@@ -8,7 +8,9 @@ import lodash from "lodash";
 import store from "@/store";
 import "babel-polyfill";
 import i18n from "./locales";
+import notivuecation from 'notivuecation';
 
+Vue.use(notivuecation);
 Vue.config.productionTip = false;
 Vue.use(VueLodash, { lodash: lodash });
 /* eslint-disable no-new */

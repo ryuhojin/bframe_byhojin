@@ -73,13 +73,9 @@ import Auth from "@/api/common/Auth";
 import { validationPasswordSpecial } from "@/utils/validation";
 import { mapGetters } from "vuex";
 import EventBus from "@/utils/EventBus";
-import msg from "../common/MessageDialog";
-import message from "@/api/common/Message"
+import message from "@/api/common/Message";
 export default {
   name: "SignIn",
-  components: {
-    msg
-  },
   data: function() {
     return {
       userId: "",
@@ -87,7 +83,7 @@ export default {
       comgrp: "08",
       error: {
         title: "",
-        content: []
+        content: ""
       }
     };
   },
@@ -99,6 +95,7 @@ export default {
         Auth.login().then(
           response => {
             //로그인 API호출
+            var tempcount = 0;
             for (var i = 0; i < response.data.length; i++) {
               if (
                 response.data[i].userId == params.userId &&
@@ -107,33 +104,55 @@ export default {
                 Auth.saveUser(params);
                 this.loadCode();
                 this.$router.push("main");
+                tempcount++;
               }
+            }
+            if (tempcount == 0) {
+              this.$alert({
+                title: "error",
+                message: "일치하는 아이디혹은 비밀번호가 아닙니다",
+                confirm: "네"
+              }).then(result => {
+                tempcount = 0;
+              });
             }
           },
           error => {
-            alert("로그인실패");
+            alert("데이터를 불러오지 못했습니다.");
           }
         );
       } else {
-        message.addMessage({'title':'error','content':this.error.content})
-        this.$root.$emit("openDialog");
-        this.errorinit();
+        this.$alert({
+          title: "error",
+          message: this.error.content,
+          confirm: "네"
+        }).then(result => {
+          this.errorinit();
+        });
       }
     },
 
     checkForm() {
       var i = 0;
       if (!this.userId) {
-        this.error.content.push("idempty");
+        this.error.content += "아이디가 비어있습니다.\n";
         i++;
       }
       if (!this.userPw) {
-        this.error.content.push("pwempty");
+        if(this.error.content != "")
+        {
+             this.error.content += "또한, 비밀번호가 비어있습니다.\n";
+        }else{
+           this.error.content += "비밀번호가 비어있습니다.\n";
+        }
+       
         i++;
       } else if (!validationPasswordSpecial(this.userPw)) {
-        if(!this.error.content.includes("password"))
+        if(this.error.content != "")
         {
-        this.error.content.push("password");
+             this.error.content += "또한, 형식과 맞지 않는 비밀번호 입니다.\n";
+        }else{
+           this.error.content += "형식과 맞지 않는 비밀번호 입니다.\n";
         }
         i++;
       }

@@ -142,9 +142,19 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$emit("submit", {
-        command: this.title,
-        data: this.form
+      this.$confirm({
+        message: "이대로 입력하시겠습니까?",
+        confirm: "네",
+        cancel: "아니오"
+      }).then(result => {
+        if (result === true) {
+          this.$emit("submit", {
+            command: this.title,
+            data: this.form
+          });
+        } else {
+          this.$emit("close");
+        }
       });
     }
   }

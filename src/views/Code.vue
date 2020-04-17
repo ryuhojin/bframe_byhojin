@@ -375,7 +375,7 @@ export default {
         formType === "INSERT"
           ? this._.cloneDeep(this.defaultForm)
           : this.selectedRow.id === null
-          ? (alert("수정할 테이블을 선택하세요"), (this.displayModal = "false"))
+          ? this.$alert('수정할 테이블을 선택하시오').then(this.displayModal = "false")
           : this._.cloneDeep(this.selectedRow);
     },
     save(values) {
