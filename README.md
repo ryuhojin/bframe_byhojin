@@ -12,9 +12,12 @@
 
 * Vuex
 * Axios
+* vue-cookies
+* vue-i18n
+* notivuecation
 
 > ```
-> Vuex와 Axios만을 사용하여 개발 되었으며 모든 기능은 순수 Javascript로 동작하고 있습니다.
+> 라이브러리는 위의 항목만을 사용하여 개발 되었으며  모든 기능은 순수 Javascript로 동작하고 있습니다.
 > ```
 
 ---
