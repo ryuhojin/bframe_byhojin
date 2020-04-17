@@ -8,10 +8,10 @@
       style="display:flex; background-color:#fff; width:auto; height:auto; align-items:center;"
     >
       <div>
-        {{ $t("lang.common.message." + getErrors.title) }}
+        {{ $t("lang.common.message." + getMessage.title) }}
       </div>
       <div class="ml-2 mr-2 bg-light d-flex flex-column justify-content-center align-items-center">
-          <span v-for="(error,i) in getErrors.content" :key="i">{{ $t("lang.common.message."+error) }}<br></span>
+          <span v-for="(message,i) in getMessage.content" :key="i">{{ $t("lang.common.message."+message) }}<br></span>
       </div>
       <div class=" d-flex p-1 flex-row justify-content-around align-items-center">
         <button class="btn btn-sm btn-success mr-2" @click="accept('success')">
