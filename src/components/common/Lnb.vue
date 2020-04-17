@@ -46,7 +46,6 @@ export default {
   created() {
     CommonApi.getMenus().then(response => {
       this.menus = response.data;
-      console.log(response.data);
     });
   },
   methods: {

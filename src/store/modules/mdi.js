@@ -66,9 +66,7 @@ export default {
       return state.visitedViews;
     },
     getCachedViewNames: state => {
-      console.log(state.visitedViews)
-      console.log("캐싱")
-      let cachedViewNames = [],
+        let cachedViewNames = [],
         i,
         view;
       for (i in state.visitedViews) {

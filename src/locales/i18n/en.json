@@ -31,9 +31,9 @@
             "cancel":"CANCEL",
             "password":"INCORRECT PASSWORD",
             "id":"INCORRECT ID",
-            "idempty":"Fill REQUIRED ID FIELD",
-            "pwempty":"Fill REQUIRED PASSWORD FIELD",
-            "empty":"Fill REQUIRED FIELDS",
+            "idempty":"FILL REQUIRED ID FIELD",
+            "pwempty":"FILL REQUIRED PASSWORD FIELD",
+            "empty":"FILL REQUIRED FIELDS",
             "button":{
                 "confirm":"confirm",
                 "cancel":"cancel"

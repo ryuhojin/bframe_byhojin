@@ -20,7 +20,7 @@
         <router-view :key="key" />
       </keep-alive>
     </div>
-    <msg ref="dig" />
+    <notivuecation />
   </div>
 </template>
 
@@ -30,15 +30,15 @@ import Lnb from "./components/common/Lnb";
 import Head from "./components/common/Header";
 import Mdi from "./components/common/Mdi";
 import { mapGetters } from "vuex";
-import msg from "./components/common/MessageDialog";
-import message from './api/common/Message'
+// import msg from "./components/common/MessageDialog";
+// import message from './api/common/Message'
 export default {
   name: "App",
   components: {
     Lnb,
     Head,
     Mdi,
-    msg
+    // msg
   },
   mounted() {
     this.$root.$on("openDialog", () => {
@@ -57,16 +57,16 @@ export default {
     }
   },
   methods: {
-    openDialog() {
-      this.$refs.dig
-        .open()
-        .then(res => {
-          message.initMessage();
-        })
-        .catch(res => {
-          message.initMessage();
-        });
-    },
+    // openDialog() {
+    //   this.$refs.dig
+    //     .open()
+    //     .then(res => {
+    //       message.initMessage();
+    //     })
+    //     .catch(res => {
+    //       message.initMessage();
+    //     });
+    // },
     changeLocale: function(locale) {
       if (locale == "ko") {
         this.$i18n.locale = "en";

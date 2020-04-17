@@ -16,8 +16,17 @@ import store from "@/store";
 export default {
   methods: {
     Logout() {
-      store.dispatch("LOGOUT"); //로그아웃
-      router.push("/login");
+      this.$confirm({
+        title: "LOGOUT",
+        message: "정말 로그아웃 하시겠습니까?",
+        confirm: "네"
+      }).then(result => {
+        if (result == true) {
+          store.dispatch("LOGOUT"); //로그아웃
+          router.push("/login");
+        } else {
+        }
+      });
     }
   }
 };

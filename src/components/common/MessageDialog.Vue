@@ -1,7 +1,7 @@
 <template>
   <div
     v-show="dialog"
-    style="position:fixed; z-index:999; width:100vw; height:100vh; display:flex; justify-content:center; align-items:center; background:rgba(0,0,0,0.5)"
+    style="position:fixed; left:0; top:0; z-index:999; width:100vw; height:100vh; display:flex; justify-content:center; align-items:center; background:rgba(0,0,0,0.5)"
   >
     <div
       class="flex-column"

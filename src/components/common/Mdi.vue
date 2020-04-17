@@ -1,5 +1,6 @@
 <template>
-  <div class="d-flex flex-row vw-86 vh-4 align-items-end">
+  <div name="flip-list"
+      tag="div" class="d-flex flex-row vw-86 vh-4 align-items-end">
     <div
       class="d-flex vh-3"
       v-for="(tag, i) in getVisitedView"
@@ -139,3 +140,22 @@ export default {
   }
 };
 </script>
+<style scoped>
+.bounce-enter-active {
+  animation: bounce-in .5s;
+}
+.bounce-leave-active {
+  animation: bounce-in .5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+</style>
