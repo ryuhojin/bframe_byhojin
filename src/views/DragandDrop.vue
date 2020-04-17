@@ -39,26 +39,18 @@
           @dragend="dragEnd"
           @drop="dragFinish(i, $event)"
         >
-          <span
-            :class="{ done: item.done }"
-            >{{ item.title }}</span
-          >
-          <span
-            class="remove-item"
-            @click="removeItem(item)"
-            >X</span
-          >
+          <span :class="{ done: item.done }">{{ item.title }}</span>
+          <span class="remove-item" @click="removeItem(item)">X</span>
         </li>
       </ul>
     </div>
   </div>
 </template>
 <style scoped>
-
 .todo-list {
   list-style-type: none;
   padding: 10px;
-  width:85vw;
+  width: 85vw;
 }
 
 .done {
@@ -100,7 +92,6 @@
   opacity: 1;
   font-size: 28px;
 }
-
 </style>
 <script>
 const TODO_STORAGE_KEY = "todostorage";
@@ -112,12 +103,12 @@ let todoStorage = {
 
 export default {
   name: "DragandDrop",
-  data:function(){
-      return{
-          todos:todoStorage.fetch(),
-          newItem:"",
-          dragging:-1
-      }
+  data: function() {
+    return {
+      todos: todoStorage.fetch(),
+      newItem: "",
+      dragging: -1
+    };
   },
   watch: {
     todos: {
@@ -129,7 +120,7 @@ export default {
   },
   computed: {
     isDragging() {
-      return this.dragging > -1
+      return this.dragging > -1;
     }
   },
   methods: {
@@ -150,8 +141,8 @@ export default {
       this.todos.splice(index, 1);
     },
     dragStart(which, ev) {
-      ev.dataTransfer.setData('Text', this.id);
-      ev.dataTransfer.dropEffect = 'move'
+      ev.dataTransfer.setData("Text", this.id);
+      ev.dataTransfer.dropEffect = "move";
       this.dragging = which;
     },
     dragEnter(ev) {
@@ -170,12 +161,12 @@ export default {
       */
     },
     dragEnd(ev) {
-      this.dragging = -1
+      this.dragging = -1;
     },
     dragFinish(to, ev) {
       this.moveItem(this.dragging, to);
-      ev.target.style.marginTop = '2px'
-      ev.target.style.marginBottom = '2px'
+      ev.target.style.marginTop = "2px";
+      ev.target.style.marginBottom = "2px";
     },
     moveItem(from, to) {
       if (to === -1) {
@@ -184,6 +175,6 @@ export default {
         this.todos.splice(to, 0, this.todos.splice(from, 1)[0]);
       }
     }
-  },
+  }
 };
 </script>

@@ -31,7 +31,13 @@
             "cancel":"CANCEL",
             "password":"INCORRECT PASSWORD",
             "id":"INCORRECT ID",
-            "empty":"Fill REQUIRED FIELDS"
+            "idempty":"Fill REQUIRED ID FIELD",
+            "pwempty":"Fill REQUIRED PASSWORD FIELD",
+            "empty":"Fill REQUIRED FIELDS",
+            "button":{
+                "confirm":"confirm",
+                "cancel":"cancel"
+            }
         },
         "lnb":{
             "Main":"Main",

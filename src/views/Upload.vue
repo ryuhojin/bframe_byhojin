@@ -8,11 +8,17 @@
     >
       <div class="p-2" v-if="!image">
         <span class="h5 font-weight-bold">업로드할 사진을 선택하세요</span>
-        <br><br><input type="file" @change="onFileChange" class="btn btn-outline-success " />
+        <br /><br /><input
+          type="file"
+          @change="onFileChange"
+          class="btn btn-outline-success "
+        />
       </div>
       <div class="p-2" v-else>
-        <img :src="image" style="height:30vh; width:30vw;"/><br>
-        <button @click="removeImage" class="btn btn-outline-danger">사진 지우기</button>
+        <img :src="image" style="height:30vh; width:30vw;" /><br />
+        <button @click="removeImage" class="btn btn-outline-danger">
+          사진 지우기
+        </button>
       </div>
     </div>
   </div>

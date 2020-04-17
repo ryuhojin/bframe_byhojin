@@ -11,8 +11,8 @@ Vue.use(VueI18n);
 //Export
 
 export default new VueI18n({
-  locale: 'ko',
-  fallbackLocale: 'ko',
+  locale: "ko",
+  fallbackLocale: "ko",
   messages: {
     ko: {
       lang: ko

@@ -1,7 +1,9 @@
 <template>
   <div class="d-flex flex-column vw-87 vh-89 align-items-center">
     <div class="d-flex flex-row vw-86 vh-5 bg-white align-items-center">
-      <span class="px-2 font-weight-bold h5">{{$t('lang.User.label.title') }}</span>
+      <span class="px-2 font-weight-bold h5">{{
+        $t("lang.User.label.title")
+      }}</span>
     </div>
     <div
       class="d-flex flex-row vw-86 vh-6 bg-white mt-1 align-items-center p-0"
@@ -12,7 +14,9 @@
         <div
           class="d-flex flex-row vw-21 vh-5 justify-content-between align-items-center px-5"
         >
-          <label for="appId" class="font-weight-bold">{{$t('lang.User.label.app') }}</label>
+          <label for="appId" class="font-weight-bold">{{
+            $t("lang.User.label.app")
+          }}</label>
           <select
             id="appId"
             v-model="searchForm.appUId"
@@ -26,7 +30,9 @@
         <div
           class="d-flex flex-row vw-21 vh-5 justify-content-between align-items-center px-5"
         >
-          <label for="useYn" class="font-weight-bold">{{$t('lang.User.label.groupname') }}</label>
+          <label for="useYn" class="font-weight-bold">{{
+            $t("lang.User.label.groupname")
+          }}</label>
           <select
             v-model="searchForm.groupName"
             id="useYn"
@@ -40,7 +46,9 @@
         <div
           class="d-flex flex-row vw-22 vh-5 justify-content-between align-items-center px-5"
         >
-          <label for="useYn" class="font-weight-bold">{{$t('lang.User.label.useyn') }}</label>
+          <label for="useYn" class="font-weight-bold">{{
+            $t("lang.User.label.useyn")
+          }}</label>
           <select
             v-model="searchForm.useYN"
             id="useYn"
@@ -54,7 +62,9 @@
         <div
           class="d-flex flex-row vw-22 vh-5 justify-content-between align-items-center px-5"
         >
-          <label for="useYn" class="font-weight-bold">{{$t('lang.User.label.role') }}</label>
+          <label for="useYn" class="font-weight-bold">{{
+            $t("lang.User.label.role")
+          }}</label>
           <input
             type="text"
             v-model="searchForm.role"
@@ -71,25 +81,25 @@
         class="btn btn-deepdark vw-5 vh-4 font-weight-bold mr-2 p-0"
         @click="search(searchForm)"
       >
-        {{$t('lang.User.button.search') }}
+        {{ $t("lang.User.button.search") }}
       </button>
       <button
         class="btn btn-deepdark vw-5 vh-4 font-weight-bold mr-2 p-0"
         @click="showForm('INSERT')"
       >
-        {{$t('lang.User.button.create') }}
+        {{ $t("lang.User.button.create") }}
       </button>
       <button
         class="btn btn-deepdark vw-5 vh-4 font-weight-bold mr-2 p-0"
         @click="showForm('UPDATE')"
       >
-        {{$t('lang.User.button.update') }}
+        {{ $t("lang.User.button.update") }}
       </button>
       <button
         class="btn btn-deepdark vw-5 vh-4 font-weight-bold mr-2 p-0"
         @click="remove"
       >
-        {{$t('lang.User.button.delete') }}
+        {{ $t("lang.User.button.delete") }}
       </button>
     </div>
     <div
@@ -111,49 +121,49 @@
               style="text-align:center; vertical-align: middle;"
               class="vw-11 p-0 m-0"
             >
-              {{$t('lang.User.table.id') }}
+              {{ $t("lang.User.table.id") }}
             </th>
             <th
               scope="col"
               style="text-align:center; vertical-align: middle;"
               class="vw-11 p-0 m-0"
             >
-               {{$t('lang.User.table.name') }}
+              {{ $t("lang.User.table.name") }}
             </th>
             <th
               scope="col"
               style="text-align:center; vertical-align: middle;"
               class="vw-11 p-0 m-0"
             >
-                {{$t('lang.User.table.password') }}
+              {{ $t("lang.User.table.password") }}
             </th>
             <th
               scope="col"
               style="text-align:center; vertical-align: middle;"
               class="vw-11 p-0 m-0"
             >
-               {{$t('lang.User.table.role') }}
+              {{ $t("lang.User.table.role") }}
             </th>
             <th
               scope="col"
               style="text-align:center; vertical-align: middle;"
               class="vw-11 p-0 m-0"
             >
-               {{$t('lang.User.table.groupname') }}
+              {{ $t("lang.User.table.groupname") }}
             </th>
             <th
               scope="col"
               style="text-align:center; vertical-align: middle;"
               class="vw-11 p-0 m-0"
             >
-               {{$t('lang.User.table.partname') }}
+              {{ $t("lang.User.table.partname") }}
             </th>
             <th
               scope="col"
               style="text-align:center; vertical-align: middle;"
               class="vw-7 p-0 m-0"
             >
-               {{$t('lang.User.table.useyn') }}
+              {{ $t("lang.User.table.useyn") }}
             </th>
           </tr>
         </thead>
@@ -244,7 +254,9 @@
           >&nbsp;&nbsp;{{ item }}&nbsp;&nbsp;&nbsp;</span
         ></span
       >
-      <span class="font-weight-bold"> {{$t('lang.User.table.amount') }} : {{ getUserNum }}</span>
+      <span class="font-weight-bold">
+        {{ $t("lang.User.table.amount") }} : {{ getUserNum }}</span
+      >
     </div>
     <Modal
       v-if="displayModal == 'block'"

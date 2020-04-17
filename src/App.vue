@@ -1,6 +1,5 @@
 <template>
   <div id="app" class="d-flex flex-row vw-100 vh-100">
-    <messagebox />
     <div style="position:fixed; right:0; bottom:0; z-index:999;">
       <button
         type="button"
@@ -8,7 +7,7 @@
         class="btn btn-circle btn-danger"
         @click="changeLocale($i18n.locale)"
       >
-      한/EN
+        한/EN
       </button>
     </div>
     <Lnb v-if="isLoggedIn" />
@@ -21,6 +20,7 @@
         <router-view :key="key" />
       </keep-alive>
     </div>
+    <msg ref="dig" />
   </div>
 </template>
 
@@ -29,31 +29,49 @@ import common from "./api/common/CommonApi";
 import Lnb from "./components/common/Lnb";
 import Head from "./components/common/Header";
 import Mdi from "./components/common/Mdi";
-import messagebox from "./components/common/MessageBox";
-import messageboxs from "@/api/common/MessageBox";
 import { mapGetters } from "vuex";
-
+import msg from "./components/common/MessageDialog";
+import message from './api/common/Message'
 export default {
   name: "App",
   components: {
     Lnb,
     Head,
     Mdi,
-    messagebox
+    msg
+  },
+  mounted() {
+    this.$root.$on("openDialog", () => {
+      this.openDialog();
+    });
   },
   computed: {
-    ...mapGetters(["isLoggedIn", "showTagsView", "getCachedViewNames","i18nlocale"]),
+    ...mapGetters([
+      "isLoggedIn",
+      "showTagsView",
+      "getCachedViewNames",
+      "i18nlocale"
+    ]),
     key() {
       return this.$route.name;
     }
   },
-  methods:{
-    changeLocale:function(locale){
-      if(locale=="ko"){
-        this.$i18n.locale='en'
-      }
-      else{
-        this.$i18n.locale="ko"
+  methods: {
+    openDialog() {
+      this.$refs.dig
+        .open()
+        .then(res => {
+          message.initErr();
+        })
+        .catch(res => {
+          message.initErr();
+        });
+    },
+    changeLocale: function(locale) {
+      if (locale == "ko") {
+        this.$i18n.locale = "en";
+      } else {
+        this.$i18n.locale = "ko";
       }
     }
   }
