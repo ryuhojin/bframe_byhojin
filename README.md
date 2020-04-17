@@ -113,3 +113,5 @@
 
 API -> Vuex(Action->Mutation->state->getter)->Vue Component 의 순서로 데이터를 제어한다.
 
+#### notivuecation
+> notivuecation은 result값으로 true 와 false값을 받는다
