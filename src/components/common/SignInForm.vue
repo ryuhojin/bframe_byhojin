@@ -74,6 +74,7 @@ import { validationPasswordSpecial } from "@/utils/validation";
 import { mapGetters } from "vuex";
 import EventBus from "@/utils/EventBus";
 import msg from "../common/MessageDialog";
+import message from "@/api/common/Message"
 export default {
   name: "SignIn",
   components: {
@@ -114,8 +115,8 @@ export default {
           }
         );
       } else {
-        this.$root.$emit("hi");
-        this.error.title = "error";
+        message.addErr({'title':'error','content':this.error.content})
+        this.$root.$emit("openDialog");
         this.errorinit();
       }
     },
@@ -123,14 +124,17 @@ export default {
     checkForm() {
       var i = 0;
       if (!this.userId) {
-        this.error.content.push("아이디가 비어있습니다.");
+        this.error.content.push("idempty");
         i++;
       }
       if (!this.userPw) {
-        this.error.content.push("비밀번호가 비어있습니다.");
+        this.error.content.push("pwempty");
         i++;
       } else if (!validationPasswordSpecial(this.userPw)) {
-        this.error.content.push("비밀번호가 잘못되었습니다.");
+        if(!this.error.content.includes("password"))
+        {
+        this.error.content.push("password");
+        }
         i++;
       }
       if (i > 0) {
@@ -149,7 +153,6 @@ export default {
       );
     },
     errorinit() {
-      this.error.title = "";
       this.error.content = [];
     }
   }

@@ -6,14 +6,16 @@ Vue.use(Vuex);
 export default {
   state: {
     title: "",
-    content: []
+    content:null,
   },
   mutations: {
     ADD_ERR: (state, view) => {
-      state.content.push(view.content);
+      state.content=view.content;
+      state.title = view.title;
     },
     INIT_ERR: state => {
-      state.content = [];
+      state.content=null;
+      state.title="";
     }
   },
   actions: {

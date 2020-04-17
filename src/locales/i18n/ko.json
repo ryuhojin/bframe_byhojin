@@ -7,12 +7,6 @@
         "header":{
             "logout":"로그아웃"
         },
-        "msg":{
-            "button":{
-                "confirm":"확인",
-                "cancel":"취소"
-            }
-        },
         "signin":{
             "input":{
                 "placeholder":{
@@ -37,7 +31,13 @@
             "cancel":"취소",
             "password":"비밀번호가 일치하지 않습니다",
             "id":"아이디가 일치하지 않습니다",
-            "empty":"필수입력란을 채워주세요"
+            "idempty":"아이디를 채워주세요",
+            "pwempty":"비밀번호를 채워주세요",
+            "empty":"필수입력란을 채워주세요",
+            "button":{
+                "confirm":"확인",
+                "cancel":"취소"
+            }
         },
         "lnb":{
             "Main":"메인",

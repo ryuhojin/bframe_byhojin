@@ -31,7 +31,7 @@ import Head from "./components/common/Header";
 import Mdi from "./components/common/Mdi";
 import { mapGetters } from "vuex";
 import msg from "./components/common/MessageDialog";
-
+import message from './api/common/Message'
 export default {
   name: "App",
   components: {
@@ -41,7 +41,7 @@ export default {
     msg
   },
   mounted() {
-    this.$root.$on("hi", () => {
+    this.$root.$on("openDialog", () => {
       this.openDialog();
     });
   },
@@ -61,10 +61,10 @@ export default {
       this.$refs.dig
         .open()
         .then(res => {
-          console.log("성공" + res);
+          message.initErr();
         })
         .catch(res => {
-          console.log("실패");
+          message.initErr();
         });
     },
     changeLocale: function(locale) {
