@@ -169,7 +169,7 @@
         </thead>
         <tbody class="vw-86">
           <tr
-            v-for="user in getuserslist"
+            v-for="user in userdata"
             :key="user.id"
             @click="selectRow(user)"
             class="vh-4 p-0 m-0"
@@ -264,10 +264,9 @@
       :type="formType"
       :form="form"
       @submit="save"
-      @close="show = false"
+      @close="close"
       :modal-class="{ [modalClass]: true }"
     >
-      
     </stack-modal>
     <!-- <Modal
       v-if="displayModal == 'block'"
@@ -316,7 +315,7 @@ export default {
       formType: null,
       selectedRow: { id: null },
       pagenum: 1,
-      pageview: 16
+      pageview:16,
     };
   },
   components: {
@@ -339,7 +338,9 @@ export default {
       return this.totalUserPage(this.pageview);
     },
     getuserslist() {
-      return this.userdata(this.pagenum, this.pageview);
+      // console.log(this.userdata)
+      // console.log("가나");
+      // return this.userdata(this.pagenum, this.pageview||16);
     }
   },
   mounted() {
@@ -373,7 +374,9 @@ export default {
               title: " ",
               message: "수정할 테이블을 선택하시오",
               confirm: "네"
-            }).then((this.show = false))
+            }).then((
+              this.show = false
+              ))
           : this._.cloneDeep(this.selectedRow) 
     },
     save(values) {
@@ -381,12 +384,17 @@ export default {
         data = values.data;
       if ("INSERT" === command) {
         users.insert(values);
-        this.displayModal = "none";
+        this.show=false;
       } else if ("UPDATE" === command) {
         users.update(data);
-        this.displayModal = "none";
         this.selectedRow = { id: null };
+        this.show = false;
+        
       }
+    },
+    close(){
+      this.show = false
+      this.selectedRow ={ id:null}
     },
     remove() {
       this.$confirm({

@@ -44,10 +44,15 @@ export default {
       if (idx > -1) state.userdata.splice(idx, 1);
     },
     UPDATE_USERDATA: (state, payload) => {
+      console.log(payload);
+      console.log("페이로드")
       const idx = state.userdata.findIndex(function(item) {
         return item.id == payload.id;
       });
+      console.log(idx);
+      console.log(state.userdata[idx]);
       state.userdata[idx] = payload;
+      console.log(state.userdata[idx]);
     }
   },
   actions: {
@@ -84,16 +89,18 @@ export default {
     user: state => {
       return state.user;
     },
-    userdata: state => (num, page) => {
-      var n = page;
-      var arr = state.userdata.slice();
-      var len = arr.length;
-      let cnt = Math.floor(len / n) + (Math.floor(len % n) > 0 ? 1 : 0);
-      var temp = [];
-      for (var i = 0; i < cnt; i++) {
-        temp.push(arr.splice(0, n));
-      }
-      return temp[num - 1];
+    userdata: state =>  {
+      //(num, page) =>
+      // var n = page;
+      // var arr = state.userdata.slice();
+      // var len = arr.length;
+      // let cnt = Math.floor(len / n) + (Math.floor(len % n) > 0 ? 1 : 0);
+      // var temp = [];
+      // for (var i = 0; i < cnt; i++) {
+      //   temp.push(arr.splice(0, n));
+      // }
+      // return temp[num - 1];
+      return state.userdata
     },
     totalUserPage: state => page => {
       var count = [];

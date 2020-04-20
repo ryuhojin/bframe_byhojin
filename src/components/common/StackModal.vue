@@ -11,10 +11,9 @@
                             </a>
                         </div>
                     </slot>
-                    <!-- 동적으로 props로 받아서 돌리고 싶은부분 -->
                     <div class="modal-body">
-                        <div v-for="(item,key,index) in form" :key="index"  class="d-flex justify-content-between">
-                            {{key}} : <input type="text" v-model="form.item"  >
+                        <div v-for="(data,key,index) in form" :key="index"  class="d-flex justify-content-between my-1">
+                            {{key}} : <input type="text" v-model="form[key]">
                         </div>
                     </div>
                     <slot name="modal-footer">
@@ -144,11 +143,24 @@
           }
         }
       },
-      onSubmit(){
-          this.$emit("submit",{
-              zIndex:this.zIndex
+      onSubmit() {
+      this.$confirm({
+        title:" ",
+        message: "이대로 입력하시겠습니까?",
+        confirm: "네",
+        cancel: "아니오"
+      }).then(result => {
+        if (result === true) {
+          this.$emit("submit", {
+             command: this.title,
+              zIndex:this.zIndex,
+              data: this.form
           });
-      }
+        } else {
+          this.$emit("close");
+        }
+      });
+    }
     },
     computed: {
       totalModals () {
