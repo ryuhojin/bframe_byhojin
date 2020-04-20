@@ -7,19 +7,21 @@
                         <div class="modal-header" v-if="title">
                             <h5 class="modal-title">{{title}}</h5>
                             <a class="close" aria-label="Close" @click.stop="$emit('close')">
-                                <span aria-hidden="true">×</span>
+                                <span style="cursor:pointer" aria-hidden="true">×</span>
                             </a>
                         </div>
                     </slot>
                     <div class="modal-body">
-                        <slot></slot>
+                        <div v-for="(data,key,index) in form" :key="index"  class="d-flex justify-content-between my-1">
+                            {{key}} : <input type="text" v-model="form[key]">
+                        </div>
                     </div>
                     <slot name="modal-footer">
                         <div class="modal-footer">
                             <button
                                     v-if="saveButtonOptions.visible"
                                     type="button"
-                                    @click="$emit('save')"
+                                    @click="onSubmit()"
                                     :class="{ ...saveButtonOptions.btnClass }"
                             >{{saveButtonOptions.title}}
                             </button>
@@ -46,6 +48,7 @@
   export default {
     name: 'StackModal',
     props: {
+      form:Object,
       /* Shows/hides the modal */
       show: Boolean,
       /* The title of the modal shown in .modal-header div. If empty title is not rendered */
@@ -84,7 +87,8 @@
       return {
         backdrop: null,
         zIndex: 0,
-        modals
+        modals,
+        data:{}
       }
     },
     mounted () {
@@ -138,7 +142,25 @@
             document.body.classList.remove('modal-open')
           }
         }
-      }
+      },
+      onSubmit() {
+      this.$confirm({
+        title:" ",
+        message: "이대로 입력하시겠습니까?",
+        confirm: "네",
+        cancel: "아니오"
+      }).then(result => {
+        if (result === true) {
+          this.$emit("submit", {
+             command: this.title,
+              zIndex:this.zIndex,
+              data: this.form
+          });
+        } else {
+          this.$emit("close");
+        }
+      });
+    }
     },
     computed: {
       totalModals () {

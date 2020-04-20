@@ -158,7 +158,7 @@ small {
 .confirm {
   display: inline-block;
   font-weight: 400;
-  color: var(--success);
+  color: #28a745;
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
@@ -185,7 +185,7 @@ small {
     .cancel {
       display: inline-block;
       font-weight: 400;
-      color: var(--bnkred);
+      color: #d7191f;
       text-align: center;
       vertical-align: middle;
       cursor: pointer;

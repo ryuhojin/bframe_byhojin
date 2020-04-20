@@ -169,7 +169,7 @@
         </thead>
         <tbody class="vw-86">
           <tr
-            v-for="user in getuserslist"
+            v-for="user in userdata"
             :key="user.id"
             @click="selectRow(user)"
             class="vh-4 p-0 m-0"
@@ -258,7 +258,17 @@
         {{ $t("lang.User.table.amount") }} : {{ getUserNum }}</span
       >
     </div>
-    <Modal
+    <stack-modal
+      :show="show"
+      :title="formType"
+      :type="formType"
+      :form="form"
+      @submit="save"
+      @close="close"
+      :modal-class="{ [modalClass]: true }"
+    >
+    </stack-modal>
+    <!-- <Modal
       v-if="displayModal == 'block'"
       :title="formType"
       :form="form"
@@ -266,11 +276,12 @@
       :display-modal="displayModal"
       @close="displayModal = false"
       @submit="save"
-    ></Modal>
+    ></Modal> -->
   </div>
 </template>
 <script>
 import Modal from "@/components/common/UserModal";
+import StackModal from "../components/common/StackModal";
 import { mapGetters } from "vuex";
 import users from "@/api/admin/User";
 
@@ -278,6 +289,8 @@ export default {
   name: "User",
   data: function() {
     return {
+      show: false,
+      modalClass: "",
       form: {},
       searchForm: {
         appUId: null,
@@ -286,27 +299,28 @@ export default {
         role: "admin"
       },
       defaultForm: {
-        id: null,
-        appUId: null,
-        userId: null,
-        userPw: null,
-        name: null,
-        groupId: null,
-        groupName: null,
-        departmentId: null,
-        departmentName: null,
-        useYN: "Y",
-        role: "admin"
+        id:"",
+        appUId:"",
+        userId:"",
+        userPw:"",
+        name:"",
+        groupId:"",
+        groupName:"",
+        departmentId:"",
+        departmentName:"",
+        useYN:"Y",
+        role:"admin"
       },
       displayModal: "none",
       formType: null,
       selectedRow: { id: null },
       pagenum: 1,
-      pageview: 16
+      pageview:16,
     };
   },
   components: {
-    Modal
+    Modal,
+    StackModal
   },
 
   computed: {
@@ -324,7 +338,9 @@ export default {
       return this.totalUserPage(this.pageview);
     },
     getuserslist() {
-      return this.userdata(this.pagenum, this.pageview);
+      // console.log(this.userdata)
+      // console.log("가나");
+      // return this.userdata(this.pagenum, this.pageview||16);
     }
   },
   mounted() {
@@ -349,39 +365,50 @@ export default {
     },
     showForm(formType) {
       this.formType = formType;
-      this.displayModal = "block";
+      this.show = true;
       this.form =
         formType === "INSERT"
           ? this._.cloneDeep(this.defaultForm)
           : this.selectedRow.id === null
-          ? this.$alert('수정할 테이블을 선택하시오').then(this.displayModal = "false")
-          : this._.cloneDeep(this.selectedRow);
+          ? this.$alert({
+              title: " ",
+              message: "수정할 테이블을 선택하시오",
+              confirm: "네"
+            }).then((
+              this.show = false
+              ))
+          : this._.cloneDeep(this.selectedRow) 
     },
     save(values) {
       let command = values.command,
         data = values.data;
       if ("INSERT" === command) {
         users.insert(values);
-        this.displayModal = "none";
+        this.show=false;
       } else if ("UPDATE" === command) {
         users.update(data);
-        this.displayModal = "none";
         this.selectedRow = { id: null };
+        this.show = false;
+        
       }
     },
-    remove() {this.$confirm({
+    close(){
+      this.show = false
+      this.selectedRow ={ id:null}
+    },
+    remove() {
+      this.$confirm({
         message: "정말 삭제하시겠습니까?",
         confirm: "네",
         cancel: "아니오"
       }).then(result => {
         if (result === true) {
-         users.delete(this.selectedRow.id);
-      this.selectedRow = { id: null };
+          users.delete(this.selectedRow.id);
+          this.selectedRow = { id: null };
         } else {
-         this.selectedRow = { id: null }
+          this.selectedRow = { id: null };
         }
       });
-      
     },
     paging(item) {
       this.pagenum = item;

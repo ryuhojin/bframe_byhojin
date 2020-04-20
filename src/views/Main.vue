@@ -19,6 +19,7 @@
        <stack-modal
                 :show="show"
                 title="Modal #1"
+                @submit="save"
                 @close="show=false"
                 :modal-class="{ [modalClass]: true }"
         >
@@ -27,6 +28,7 @@
 
         <stack-modal
                 :show="show_second"
+                @submit="save"
                 @close="show_second=false"
         >
             <p>I have no title so the modal-header is missing.</p>
@@ -36,6 +38,7 @@
 
         <stack-modal
                 :show="show_third"
+                @submit="save"
                 @close="show_third=false"
                 title="Last modal"
                 :close-on-escape="false"
@@ -59,6 +62,22 @@ export default {
       show_second:false,
       show_third:false,
       modalClass:''
+    }
+  },
+  methods:{
+    save:function(values){
+      console.log(values.zIndex)
+      if(values.zIndex==1)
+      {
+        this.show=false;
+      }
+      if(values.zIndex==2)
+      {
+        this.show_second=false;
+      }
+      else{
+        this.show_third=false;
+      }
     }
   }
 };

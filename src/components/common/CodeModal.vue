@@ -143,6 +143,7 @@ export default {
   methods: {
     onSubmit() {
       this.$confirm({
+        title:" ",
         message: "이대로 입력하시겠습니까?",
         confirm: "네",
         cancel: "아니오"
