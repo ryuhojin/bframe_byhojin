@@ -354,7 +354,7 @@ export default {
         formType === "INSERT"
           ? this._.cloneDeep(this.defaultForm)
           : this.selectedRow.id === null
-          ? (alert("수정할 테이블을 선택하세요"), (this.displayModal = "false"))
+          ? this.$alert('수정할 테이블을 선택하시오').then(this.displayModal = "false")
           : this._.cloneDeep(this.selectedRow);
     },
     save(values) {
@@ -369,9 +369,19 @@ export default {
         this.selectedRow = { id: null };
       }
     },
-    remove() {
-      users.delete(this.selectedRow.id);
+    remove() {this.$confirm({
+        message: "정말 삭제하시겠습니까?",
+        confirm: "네",
+        cancel: "아니오"
+      }).then(result => {
+        if (result === true) {
+         users.delete(this.selectedRow.id);
       this.selectedRow = { id: null };
+        } else {
+         this.selectedRow = { id: null }
+        }
+      });
+      
     },
     paging(item) {
       this.pagenum = item;
