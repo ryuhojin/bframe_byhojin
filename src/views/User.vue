@@ -258,7 +258,18 @@
         {{ $t("lang.User.table.amount") }} : {{ getUserNum }}</span
       >
     </div>
-    <Modal
+    <stack-modal
+      :show="show"
+      :title="formType"
+      :type="formType"
+      :form="form"
+      @submit="save"
+      @close="show = false"
+      :modal-class="{ [modalClass]: true }"
+    >
+      
+    </stack-modal>
+    <!-- <Modal
       v-if="displayModal == 'block'"
       :title="formType"
       :form="form"
@@ -266,11 +277,12 @@
       :display-modal="displayModal"
       @close="displayModal = false"
       @submit="save"
-    ></Modal>
+    ></Modal> -->
   </div>
 </template>
 <script>
 import Modal from "@/components/common/UserModal";
+import StackModal from "../components/common/StackModal";
 import { mapGetters } from "vuex";
 import users from "@/api/admin/User";
 
@@ -278,6 +290,8 @@ export default {
   name: "User",
   data: function() {
     return {
+      show: false,
+      modalClass: "",
       form: {},
       searchForm: {
         appUId: null,
@@ -286,17 +300,17 @@ export default {
         role: "admin"
       },
       defaultForm: {
-        id: null,
-        appUId: null,
-        userId: null,
-        userPw: null,
-        name: null,
-        groupId: null,
-        groupName: null,
-        departmentId: null,
-        departmentName: null,
-        useYN: "Y",
-        role: "admin"
+        id:"",
+        appUId:"",
+        userId:"",
+        userPw:"",
+        name:"",
+        groupId:"",
+        groupName:"",
+        departmentId:"",
+        departmentName:"",
+        useYN:"Y",
+        role:"admin"
       },
       displayModal: "none",
       formType: null,
@@ -306,7 +320,8 @@ export default {
     };
   },
   components: {
-    Modal
+    Modal,
+    StackModal
   },
 
   computed: {
@@ -349,13 +364,17 @@ export default {
     },
     showForm(formType) {
       this.formType = formType;
-      this.displayModal = "block";
+      this.show = true;
       this.form =
         formType === "INSERT"
           ? this._.cloneDeep(this.defaultForm)
           : this.selectedRow.id === null
-          ? this.$alert('수정할 테이블을 선택하시오').then(this.displayModal = "false")
-          : this._.cloneDeep(this.selectedRow);
+          ? this.$alert({
+              title: " ",
+              message: "수정할 테이블을 선택하시오",
+              confirm: "네"
+            }).then((this.show = false))
+          : this._.cloneDeep(this.selectedRow) 
     },
     save(values) {
       let command = values.command,
@@ -369,19 +388,19 @@ export default {
         this.selectedRow = { id: null };
       }
     },
-    remove() {this.$confirm({
+    remove() {
+      this.$confirm({
         message: "정말 삭제하시겠습니까?",
         confirm: "네",
         cancel: "아니오"
       }).then(result => {
         if (result === true) {
-         users.delete(this.selectedRow.id);
-      this.selectedRow = { id: null };
+          users.delete(this.selectedRow.id);
+          this.selectedRow = { id: null };
         } else {
-         this.selectedRow = { id: null }
+          this.selectedRow = { id: null };
         }
       });
-      
     },
     paging(item) {
       this.pagenum = item;

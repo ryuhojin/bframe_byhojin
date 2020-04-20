@@ -109,7 +109,7 @@ export default {
             }
             if (tempcount == 0) {
               this.$alert({
-                title: "error",
+                title: " ",
                 message: "일치하는 아이디혹은 비밀번호가 아닙니다",
                 confirm: "네"
               }).then(result => {
@@ -123,7 +123,7 @@ export default {
         );
       } else {
         this.$alert({
-          title: "error",
+          title: " ",
           message: this.error.content,
           confirm: "네"
         }).then(result => {

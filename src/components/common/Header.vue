@@ -17,9 +17,10 @@ export default {
   methods: {
     Logout() {
       this.$confirm({
-        title: "LOGOUT",
+        title: " ",
         message: "정말 로그아웃 하시겠습니까?",
-        confirm: "네"
+        confirm: "네",
+        cancel:"아니오"
       }).then(result => {
         if (result == true) {
           store.dispatch("LOGOUT"); //로그아웃

@@ -7,19 +7,22 @@
                         <div class="modal-header" v-if="title">
                             <h5 class="modal-title">{{title}}</h5>
                             <a class="close" aria-label="Close" @click.stop="$emit('close')">
-                                <span aria-hidden="true">×</span>
+                                <span style="cursor:pointer" aria-hidden="true">×</span>
                             </a>
                         </div>
                     </slot>
+                    <!-- 동적으로 props로 받아서 돌리고 싶은부분 -->
                     <div class="modal-body">
-                        <slot></slot>
+                        <div v-for="(item,key,index) in form" :key="index"  class="d-flex justify-content-between">
+                            {{key}} : <input type="text" v-model="form.item"  >
+                        </div>
                     </div>
                     <slot name="modal-footer">
                         <div class="modal-footer">
                             <button
                                     v-if="saveButtonOptions.visible"
                                     type="button"
-                                    @click="$emit('save')"
+                                    @click="onSubmit()"
                                     :class="{ ...saveButtonOptions.btnClass }"
                             >{{saveButtonOptions.title}}
                             </button>
@@ -46,6 +49,7 @@
   export default {
     name: 'StackModal',
     props: {
+      form:Object,
       /* Shows/hides the modal */
       show: Boolean,
       /* The title of the modal shown in .modal-header div. If empty title is not rendered */
@@ -84,7 +88,8 @@
       return {
         backdrop: null,
         zIndex: 0,
-        modals
+        modals,
+        data:{}
       }
     },
     mounted () {
@@ -138,6 +143,11 @@
             document.body.classList.remove('modal-open')
           }
         }
+      },
+      onSubmit(){
+          this.$emit("submit",{
+              zIndex:this.zIndex
+          });
       }
     },
     computed: {
