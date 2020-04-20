@@ -391,8 +391,18 @@ export default {
       }
     },
     remove() {
-      codes.delete(this.selectedRow.ID);
-      this.selectedRow = { id: null };
+      this.$confirm({
+        message: "정말 삭제하시겠습니까?",
+        confirm: "네",
+        cancel: "아니오"
+      }).then(result => {
+        if (result === true) {
+          codes.delete(this.selectedRow.ID)
+        this.selectedRow = { id: null }
+        } else {
+         this.selectedRow = { id: null }
+        }
+      });
     }
   }
 };
