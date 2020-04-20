@@ -5,6 +5,10 @@
 > 4. 기대효과 : Modal을 여러가지 만들지 않고 하나의 Modal로 모두 대응 가능
 > 5. 예상 완료일자 4/22
 
+## 차후 진행 계획
+> 1. Pagination Library로 교체
+> 2. Table Component화
+
 ## 실행방법
 > 1. npm install
 > 2. npm run dev
