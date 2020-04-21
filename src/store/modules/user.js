@@ -20,22 +20,16 @@ export default {
       state.user = payload;
     },
     SAVE_USERDATA: (state, payload) => {
+
       state.userdata = payload;
     },
     INSERT_USERDATA: (state, payload) => {
-      state.userdata.push(payload.data);
+      var object = payload.reduce(
+        (obj,item)=>Object.assign(obj,{[item.name]:item.value}),{});
+      state.userdata.push(object);
     },
     SELECT_USERDATA: (state, payload) => {
-      // for(var i =0;i<state.userdata.length;i++)
-      // {
-      //     if(state.userdata[i].appUId.includes(payload.appUId)||state.userdata[i].groupName.includes(payload.groupName))
 
-      // }
-      // state.userdata=payload
-      console.log(state);
-      console.log("아하");
-      console.log(payload);
-      console.log("이히");
     },
     DELETE_USERDATA: (state, payload) => {
       const idx = state.userdata.findIndex(function(item) {
@@ -44,15 +38,12 @@ export default {
       if (idx > -1) state.userdata.splice(idx, 1);
     },
     UPDATE_USERDATA: (state, payload) => {
-      console.log(payload);
-      console.log("페이로드")
+      var object = payload.reduce(
+        (obj,item)=>Object.assign(obj,{[item.name]:item.value}),{});
       const idx = state.userdata.findIndex(function(item) {
-        return item.id == payload.id;
+        return item.id == object.id;
       });
-      console.log(idx);
-      console.log(state.userdata[idx]);
-      state.userdata[idx] = payload;
-      console.log(state.userdata[idx]);
+      state.userdata[idx] = object;
     }
   },
   actions: {

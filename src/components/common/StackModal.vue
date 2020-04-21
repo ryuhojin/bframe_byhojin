@@ -1,272 +1,328 @@
 <template>
-    <transition :name="transition" appear>
-        <div v-if="show" class="modal fade show" :style="getStyle" @mousedown="mouseDown" ref="modal">
-            <div class="modal-dialog" role="document" :class="getClass">
-                <div class="modal-content">
-                    <slot name="modal-header">
-                        <div class="modal-header" v-if="title">
-                            <h5 class="modal-title">{{title}}</h5>
-                            <a class="close" aria-label="Close" @click.stop="$emit('close')">
-                                <span style="cursor:pointer" aria-hidden="true">×</span>
-                            </a>
-                        </div>
-                    </slot>
-                    <div class="modal-body">
-                        <div v-for="(data,key,index) in form" :key="index"  class="d-flex justify-content-between my-1">
-                            {{key}} : <input type="text" v-model="form[key]">
-                        </div>
-                    </div>
-                    <slot name="modal-footer">
-                        <div class="modal-footer">
-                            <button
-                                    v-if="saveButtonOptions.visible"
-                                    type="button"
-                                    @click="onSubmit()"
-                                    :class="{ ...saveButtonOptions.btnClass }"
-                            >{{saveButtonOptions.title}}
-                            </button>
-                            <button
-                                    v-if="cancelButtonOptions.visible"
-                                    type="button"
-                                    :class="{ ...cancelButtonOptions.btnClass }"
-                                    data-dismiss="modal"
-                                    @click.stop="$emit('close')"
-                            >{{cancelButtonOptions.title}}
-                            </button>
-                        </div>
-                    </slot>
-                </div>
+  <transition :name="transition" appear>
+    <div
+      v-if="show"
+      class="modal fade show"
+      :style="getStyle"
+      @mousedown="mouseDown"
+      ref="modal"
+    >
+      <div class="modal-dialog" role="document" :class="getClass">
+        <div class="modal-content">
+          <slot name="modal-header">
+            <div class="modal-header" v-if="title">
+              <h5 class="modal-title">{{ title }}</h5>
+              <a class="close" aria-label="Close" @click.stop="$emit('close')">
+                <span style="cursor:pointer" aria-hidden="true">×</span>
+              </a>
             </div>
+          </slot>
+          <div class="modal-body">
+            <!-- <div v-for="(data,key,index) in form" :key="index"  class="d-flex justify-content-between my-1">
+                            {{key}} : <input type="text" v-model="form[key]">
+                        </div> -->
+            <div
+              v-for="item in form"
+              :key="item.name"
+              class="d-flex justify-content-between my-1"
+            >
+              {{ item.name }}
+
+              <select
+                style="width:36%"
+                v-show="item.type === 'select'&&item.name=='groupId'"
+                v-model="item.value"
+              >
+                <option v-for="option in selectGroup" :key="option.SORT">{{
+                option.CODE_VALUE
+                }}</option>
+              </select>
+              <select
+                style="width:36%"
+                v-show="item.type === 'select'&&item.name=='groupName'"
+                v-model="item.value"
+              >
+                <option v-for="option in selectGroup" :key="option.SORT">{{
+                option.CODE_TEXT
+                }}</option>
+              </select>
+              <select
+                style="width:36%"
+                v-show="item.type === 'select'&&item.name=='useYN'||item.name=='USE_YN'"
+                v-model="item.value"
+              >
+                <option v-for="option in selectUseYn" :key="option.SORT">{{
+                option.CODE_TEXT
+                }}</option>
+              </select>
+              <input v-show="item.type==='text'|| item.type==='password'|| item.type==='date'" :type="item.type" v-model="item.value" />
+            </div>
+          </div>
+          <slot name="modal-footer">
+            <div class="modal-footer">
+              <button
+                v-if="saveButtonOptions.visible"
+                type="button"
+                @click="onSubmit()"
+                :class="{ ...saveButtonOptions.btnClass }"
+              >
+                {{ saveButtonOptions.title }}
+              </button>
+              <button
+                v-if="cancelButtonOptions.visible"
+                type="button"
+                :class="{ ...cancelButtonOptions.btnClass }"
+                data-dismiss="modal"
+                @click.stop="$emit('close')"
+              >
+                {{ cancelButtonOptions.title }}
+              </button>
+            </div>
+          </slot>
         </div>
-    </transition>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script>
-  // import Vue from 'vue'
-  const modals = {count: 0}
-  // const modals = Vue.observable({count: 0})
-  export default {
-    name: 'StackModal',
-    props: {
-      form:Object,
-      /* Shows/hides the modal */
-      show: Boolean,
-      /* The title of the modal shown in .modal-header div. If empty title is not rendered */
-      title: String,
-      /* :class object which is attached to the modal dialog element */
-      modalClass: Object,
-      /* Whether to display backdrop element for this dialog. It is added to the body with calculated z-index.*/
-      hasBackdrop: {
-        type: Boolean,
-        default: true
-      },
-      /* Save button config */
-      saveButton: {
-        type: Object,
-        default: () => ({})
-      },
-      /* Cancel button config */
-      cancelButton: {
-        type: Object,
-        default: () => ({})
-      },
-      /*
-      * Transition to use when showing the modal.
-      * You need to include scss @innologica/vue-stackable-modal/src/assets/transitions/translate-fade.scss
-      * */
-      transition: {
-        type: String,
-        default: 'translate-fade'
-      },
-      closeOnEscape: {
-        type: Boolean,
-        default: true
+import { mapGetters } from "vuex";
+// import Vue from 'vue'
+const modals = { count: 0 };
+// const modals = Vue.observable({count: 0})
+export default {
+  name: "StackModal",
+  props: {
+    //   form:Object,
+    form: Array,
+    /* Shows/hides the modal */
+    show: Boolean,
+    /* The title of the modal shown in .modal-header div. If empty title is not rendered */
+    title: String,
+    /* :class object which is attached to the modal dialog element */
+    modalClass: Object,
+    /* Whether to display backdrop element for this dialog. It is added to the body with calculated z-index.*/
+    hasBackdrop: {
+      type: Boolean,
+      default: true
+    },
+    /* Save button config */
+    saveButton: {
+      type: Object,
+      default: () => ({})
+    },
+    /* Cancel button config */
+    cancelButton: {
+      type: Object,
+      default: () => ({})
+    },
+    /*
+     * Transition to use when showing the modal.
+     * You need to include scss @innologica/vue-stackable-modal/src/assets/transitions/translate-fade.scss
+     * */
+    transition: {
+      type: String,
+      default: "translate-fade"
+    },
+    closeOnEscape: {
+      type: Boolean,
+      default: true
+    }
+  },
+  data() {
+    return {
+      backdrop: null,
+      zIndex: 0,
+      modals,
+      data: {}
+    };
+  },
+  mounted() {
+    if (this.show) {
+      modals.count++;
+      this.zIndex = modals.count;
+      this.$emit("show", true, this.zIndex, modals.count);
+    }
+    this.checkBackdrop();
+  },
+  destroyed() {
+    if (this.show) {
+      modals.count--;
+      this.zIndex = modals.count;
+      this.$emit("show", false, this.zIndex, modals.count);
+    }
+    if (this.backdrop && this.show) document.body.removeChild(this.backdrop);
+    if (modals.count === 0) {
+      document.body.classList.remove("modal-open");
+    }
+  },
+  methods: {
+    handleEscape(e) {
+      if (this.show && e.keyCode === 27 && this.zIndex === this.totalModals) {
+        this.$emit("close");
       }
     },
-    data () {
-      return {
-        backdrop: null,
-        zIndex: 0,
-        modals,
-        data:{}
+    mouseDown(event) {
+      if (this.$refs.modal === event.target) {
+        this.$emit("close");
+        event.preventDefault();
       }
     },
-    mounted () {
+    checkBackdrop() {
+      if (!this.hasBackdrop) return;
+      if (this.show && this.zIndex === 1) {
+        document.body.classList.add("modal-open");
+      } else if (!this.show && this.zIndex === this.totalModals) {
+        // enableScroll()
+      }
       if (this.show) {
-        modals.count++
-        this.zIndex = modals.count
-        this.$emit('show', true, this.zIndex, modals.count)
-      }
-      this.checkBackdrop()
-    },
-    destroyed () {
-      if (this.show) {
-        modals.count--
-        this.zIndex = modals.count
-        this.$emit('show', false, this.zIndex, modals.count)
-      }
-      if (this.backdrop && this.show)
-        document.body.removeChild(this.backdrop)
-      if (modals.count === 0) {
-        document.body.classList.remove('modal-open')
+        this.backdrop = document.createElement("div");
+        this.backdrop.classList.add("modal-backdrop", "fade", "show");
+        this.backdrop.style.zIndex = 1048 + this.zIndex * 2;
+        document.body.appendChild(this.backdrop);
+      } else {
+        if (this.backdrop) {
+          document.body.removeChild(this.backdrop);
+          document.body.classList.remove("modal-open");
+        }
       }
     },
-    methods: {
-      handleEscape (e) {
-        if (this.show && e.keyCode === 27 && this.zIndex === this.totalModals) {
-          this.$emit('close')
-        }
-      },
-      mouseDown (event) {
-        if (this.$refs.modal === event.target) {
-          this.$emit('close')
-          event.preventDefault()
-        }
-      },
-      checkBackdrop () {
-        if (!this.hasBackdrop)
-          return
-        if (this.show && this.zIndex === 1) {
-          document.body.classList.add('modal-open')
-        } else if (!this.show && this.zIndex === this.totalModals) {
-          // enableScroll()
-        }
-        if (this.show) {
-          this.backdrop = document.createElement('div')
-          this.backdrop.classList.add('modal-backdrop', 'fade', 'show')
-          this.backdrop.style.zIndex = 1048 + this.zIndex * 2;
-          document.body.appendChild(this.backdrop)
-        } else {
-          if (this.backdrop) {
-            document.body.removeChild(this.backdrop)
-            document.body.classList.remove('modal-open')
-          }
-        }
-      },
-      onSubmit() {
+    onSubmit() {
+      console.log(this.form);
       this.$confirm({
-        title:" ",
+        title: " ",
         message: "이대로 입력하시겠습니까?",
         confirm: "네",
         cancel: "아니오"
       }).then(result => {
         if (result === true) {
           this.$emit("submit", {
-             command: this.title,
-              zIndex:this.zIndex,
-              data: this.form
+            command: this.title,
+            zIndex: this.zIndex,
+            data: this.form
           });
         } else {
           this.$emit("close");
         }
       });
     }
+  },
+  computed: {
+    totalModals() {
+      //global static variable :)
+      return modals.count;
     },
-    computed: {
-      totalModals () {
-        //global static variable :)
-        return modals.count
-      },
-      getStyle () {
-        let style = {}
-        if (this.show)
-          style.display = 'block'
-        style['z-index'] = 1048 + this.zIndex * 2 + 1
-        return style
-      },
-      getClass () {
-        let classes = {}
-        // if (this.zIndex !== this.totalModals) {
-          let idx = this.totalModals - this.zIndex
-          classes['modal-stack-' + idx] = true
-          classes['modal-order-' + this.zIndex] = true
-        // }
-        classes.aside = this.zIndex !== this.totalModals
-        return {...classes, ...this.modalClass}
-      },
-      saveButtonOptions () {
-        const saveButtonDefaults = {
-          title: 'Save',
-          visible: true,
-          btnClass: {'btn btn-primary': true}
-        }
-        return {...saveButtonDefaults, ...this.saveButton}
-      },
-      cancelButtonOptions () {
-        const cancelButtonDefaults = {
-          title: 'Cancel',
-          visible: true,
-          btnClass: {'btn btn-outline-secondary': true}
-        }
-        return {...cancelButtonDefaults, ...this.cancelButton}
-      }
+    getStyle() {
+      let style = {};
+      if (this.show) style.display = "block";
+      style["z-index"] = 1048 + this.zIndex * 2 + 1;
+      return style;
     },
-    watch: {
-      show (value) {
-        value ? modals.count++ : modals.count--
-        this.zIndex = modals.count
-        this.$emit('show', value, this.zIndex, modals.count)
-        if (!value && modals.count === 0) {
-          document.body.classList.remove('modal-open')
-        }
-        this.checkBackdrop()
-      },
-      closeOnEscape: {
-        handler (value) {
-          if(typeof document !== 'undefined') {
-            value ? document.addEventListener('keydown', this.handleEscape) : document.removeEventListener('keydown', this.handleEscape)
-          }
-        },
-        immediate: true
+    getClass() {
+      let classes = {};
+      // if (this.zIndex !== this.totalModals) {
+      let idx = this.totalModals - this.zIndex;
+      classes["modal-stack-" + idx] = true;
+      classes["modal-order-" + this.zIndex] = true;
+      // }
+      classes.aside = this.zIndex !== this.totalModals;
+      return { ...classes, ...this.modalClass };
+    },
+    saveButtonOptions() {
+      const saveButtonDefaults = {
+        title: "Save",
+        visible: true,
+        btnClass: { "btn btn-primary": true }
+      };
+      return { ...saveButtonDefaults, ...this.saveButton };
+    },
+    cancelButtonOptions() {
+      const cancelButtonDefaults = {
+        title: "Cancel",
+        visible: true,
+        btnClass: { "btn btn-outline-secondary": true }
+      };
+      return { ...cancelButtonDefaults, ...this.cancelButton };
+    },
+    ...mapGetters(["getCodeList", "getCodeID"]),
+    selectApp() {
+      return this.getCodeList("COM001");
+    },
+    selectUseYn() {
+      return this.getCodeList("COM002");
+    },
+    selectGroup() {
+      return this.getCodeList("COM005");
+    }
+  },
+  watch: {
+    show(value) {
+      value ? modals.count++ : modals.count--;
+      this.zIndex = modals.count;
+      this.$emit("show", value, this.zIndex, modals.count);
+      if (!value && modals.count === 0) {
+        document.body.classList.remove("modal-open");
       }
+      this.checkBackdrop();
+    },
+    closeOnEscape: {
+      handler(value) {
+        if (typeof document !== "undefined") {
+          value
+            ? document.addEventListener("keydown", this.handleEscape)
+            : document.removeEventListener("keydown", this.handleEscape);
+        }
+      },
+      immediate: true
     }
   }
+};
 </script>
 
 <style lang="scss" scoped>
-    //stack modals effect
-    $distance: 40px; /* distance between stacked modals*/
-    $modal-translate-z: -60px; /* The first modal translateZ value*/
-    @mixin transform($n) {
-        transform: scale(0.9) /* rotateY(45deg) translateZ($translateZ)*/
-        translate(- 2rem * $n, $n * -50px);
-        transform-origin: top left;
-        /*margin-top: (-$n - 3) * 1.75rem;*/
+//stack modals effect
+$distance: 40px; /* distance between stacked modals*/
+$modal-translate-z: -60px; /* The first modal translateZ value*/
+@mixin transform($n) {
+  transform: scale(0.9) /* rotateY(45deg) translateZ($translateZ)*/
+    translate(-2rem * $n, $n * -50px);
+  transform-origin: top left;
+  /*margin-top: (-$n - 3) * 1.75rem;*/
+}
+@mixin preserve-3d() {
+  transform-style: preserve-3d;
+}
+.modal {
+  .modal-dialog {
+    .modal-content {
+      transition: all 0.15s;
     }
-    @mixin preserve-3d() {
-        transform-style: preserve-3d;
+    &.aside {
+      @include preserve-3d();
+      &.modal-stack-1 .modal-content {
+        @include transform(1);
+      }
+      &.modal-stack-2 .modal-content {
+        @include transform(2);
+      }
+      &.modal-stack-3 .modal-content {
+        @include transform(3);
+      }
     }
-    .modal {
-        .modal-dialog {
-            .modal-content {
-                transition: all 0.15s;
-            }
-            &.aside {
-                @include preserve-3d();
-                &.modal-stack-1 .modal-content {
-                    @include transform(1);
-                }
-                &.modal-stack-2 .modal-content {
-                    @include transform(2);
-                }
-                &.modal-stack-3 .modal-content {
-                    @include transform(3);
-                }
-            }
-        }
-    }
+  }
+}
 </style>
 
 <style lang="scss" scoped>
-    .aside {
-        .modal-visible-aside {
-            display: block;
-        }
-        .modal-invisible-aside {
-            display: none;
-        }
-    }
-    .modal-visible-aside {
-        display: none;
-    }
+.aside {
+  .modal-visible-aside {
+    display: block;
+  }
+  .modal-invisible-aside {
+    display: none;
+  }
+}
+.modal-visible-aside {
+  display: none;
+}
 </style>
