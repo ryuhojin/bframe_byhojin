@@ -431,20 +431,18 @@ export default {
     showForm(formType) {
       this.formType = formType;
       this.show = true;
-      this.form2 =
-        formType === "INSERT"
-          ? this._.cloneDeep(this.defaultForm2) 
-          : this.selectedRow.id === null
-          ? this.$alert({
-              title: " ",
-              message: "수정할 테이블을 선택하시오",
-              confirm: "네"
-            }).then((
-              this.show = false,
-              this._.cloneDeep(this.defaultForm2)
-              ))
-          : this._.cloneDeep(this.selectedRow2) 
-          
+      formType === "INSERT"
+        ? (this.form2 = this._.cloneDeep(this.defaultForm2))
+        : this.selectedRow.id === null
+        ? this.$alert({
+            title: " ",
+            message: "수정할 테이블을 선택하시오",
+            confirm: "네"
+          }).then(
+            ((this.show = false),
+            (this.form2 = this._.cloneDeep(this.defaultForm2)))
+          )
+        : (this.form2 = this._.cloneDeep(this.selectedRow2));
     },
     save(values) {
       let command = values.command,
