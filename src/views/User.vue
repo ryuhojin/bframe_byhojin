@@ -280,7 +280,6 @@
   </div>
 </template>
 <script>
-import Modal from "@/components/common/UserModal";
 import StackModal from "../components/common/StackModal";
 import { mapGetters } from "vuex";
 import users from "@/api/admin/User";
@@ -334,7 +333,6 @@ export default {
     };
   },
   components: {
-    Modal,
     StackModal
   },
 
@@ -421,18 +419,19 @@ export default {
     showForm(formType) {
       this.formType = formType;
       this.show = true;
-      this.form2 =
+      
         formType === "INSERT"
-          ? this._.cloneDeep(this.defaultForm2) 
+          ? this.form2 = this._.cloneDeep(this.defaultForm2) 
           : this.selectedRow.id === null
           ? this.$alert({
               title: " ",
               message: "수정할 테이블을 선택하시오",
               confirm: "네"
             }).then((
-              this.show = false
+              this.show = false,
+              this.form2= this._.cloneDeep(this.defaultForm2)
               ))
-          : this._.cloneDeep(this.selectedRow2) 
+          : this.form2 = this._.cloneDeep(this.selectedRow2) 
     },
     save(values) {
       let command = values.command,
@@ -452,6 +451,13 @@ export default {
       this.selectedRow ={ id:null}
     },
     remove() {
+      this.selectedRow.id ===null ?
+      this.$alert({
+        title:" ",
+        message:"삭제할 행을 선택해주세요",
+        confirm:"네"
+      })
+      :
       this.$confirm({
         message: "정말 삭제하시겠습니까?",
         confirm: "네",
