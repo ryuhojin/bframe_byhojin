@@ -12,7 +12,9 @@ export default {
       state.codes = payload;
     },
     INSERT_CODE: (state, payload) => {
-      state.codes.push(payload.data);
+      var object = payload.reduce(
+        (obj,item)=>Object.assign(obj,{[item.name]:item.value}),{});
+      state.codes.push(object);
     },
     SELECT_CODE: (state, payload) => {
       console.log(state);
@@ -25,10 +27,12 @@ export default {
       if (idx > -1) state.codes.splice(idx, 1);
     },
     UPDATE_CODE: (state, payload) => {
+      var object = payload.reduce(
+        (obj,item)=>Object.assign(obj,{[item.name]:item.value}),{});
       const idx = state.codes.findIndex(function(item) {
-        return item.ID == payload.ID;
+        return item.ID === object.ID
       });
-      state.codes[idx] = payload;
+      state.codes[idx] = object;
     }
   },
   actions: {
@@ -49,16 +53,18 @@ export default {
     }
   },
   getters: {
-    codes: state => (num, page) => {
-      var n = page;
-      var arr = state.codes.slice();
-      var len = arr.length;
-      let cnt = Math.floor(len / n) + (Math.floor(len % n) > 0 ? 1 : 0);
-      var temp = [];
-      for (var i = 0; i < cnt; i++) {
-        temp.push(arr.splice(0, n));
-      }
-      return temp[num - 1];
+    codes: state => {
+      // (num, page) =>
+      // var n = page;
+      // var arr = state.codes.slice();
+      // var len = arr.length;
+      // let cnt = Math.floor(len / n) + (Math.floor(len % n) > 0 ? 1 : 0);
+      // var temp = [];
+      // for (var i = 0; i < cnt; i++) {
+      //   temp.push(arr.splice(0, n));
+      // }
+      // return temp[num - 1];
+      return state.codes
     },
     totalCodePage: state => page => {
       var count = [];

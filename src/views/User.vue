@@ -262,7 +262,7 @@
       :show="show"
       :title="formType"
       :type="formType"
-      :form="form"
+      :form="form2"
       @submit="save"
       @close="close"
       :modal-class="{ [modalClass]: true }"
@@ -291,30 +291,45 @@ export default {
     return {
       show: false,
       modalClass: "",
-      form: {},
+      // form: {},
+      form2:[],
       searchForm: {
         appUId: null,
         groupName: "BNKSYS",
         useYN: null,
         role: "admin"
       },
-      defaultForm: {
-        id:"",
-        appUId:"",
-        userId:"",
-        userPw:"",
-        name:"",
-        groupId:"",
-        groupName:"",
-        departmentId:"",
-        departmentName:"",
-        useYN:"Y",
-        role:"admin"
-      },
-      displayModal: "none",
+      // defaultForm: {
+      //   id:"",
+      //   appUId:"",
+      //   userId:"",
+      //   userPw:"",
+      //   name:"",
+      //   groupId:"",
+      //   groupName:"",
+      //   departmentId:"",
+      //   departmentName:"",
+      //   useYN:"Y",
+      //   role:"admin"
+      // },
+      defaultForm2:[
+        {name:"id",value:"",type:"text"},
+        {name:"appUId",value:"",type:"text"},
+        {name:"userId",value:"",type:"text"},
+        {name:"userPw",value:"",type:"password"},
+        {name:"name",value:"",type:"text"},
+        {name:"groupId",value:"",type:"select"},
+        {name:"groupName",value:"",type:"select"},
+        {name:"departmentId",value:"",type:"text"},
+        {name:"departmentName",value:"",type:"text"},
+        {name:"useYN",value:"Y",type:"select"},
+        {name:"role",value:"admin",type:"text"}
+      ],
+      selectedRow2:[],
+      // displayModal: "none",
       formType: null,
       selectedRow: { id: null },
-      pagenum: 1,
+      // pagenum: 1,
       pageview:16,
     };
   },
@@ -361,14 +376,54 @@ export default {
       );
     },
     selectRow(row) {
+      var len = Object.keys(row).length;
+      this.selectedRow2=[];
+      for(var i = 0; i<len;i++)
+      {
+        if(Object.keys(row)[i]=='groupId')
+        {
+          this.selectedRow2.push({"name":Object.keys(row)[i],"value":Object.values(row)[i],"type":"select"})
+        }
+        else if(Object.keys(row)[i]=='groupName')
+        {
+          this.selectedRow2.push({"name":Object.keys(row)[i],"value":Object.values(row)[i],"type":"select"})
+        }
+        else if(Object.keys(row)[i]=='useYN')
+        {
+          this.selectedRow2.push({"name":Object.keys(row)[i],"value":Object.values(row)[i],"type":"select"})
+        }
+        else if(Object.keys(row)[i]=='userPw')
+        { 
+          this.selectedRow2.push({"name":Object.keys(row)[i],"value":Object.values(row)[i],"type":"password"})
+        }
+        else{
+          this.selectedRow2.push({"name":Object.keys(row)[i],"value":Object.values(row)[i],"type":"text"})
+        }
+      }
       this.selectedRow = row;
     },
+    // showForm(formType) {
+    //   this.formType = formType;
+    //   this.show = true;
+    //   this.form =
+    //     formType === "INSERT"
+    //       ? this._.cloneDeep(this.defaultForm)
+    //       : this.selectedRow.id === null
+    //       ? this.$alert({
+    //           title: " ",
+    //           message: "수정할 테이블을 선택하시오",
+    //           confirm: "네"
+    //         }).then((
+    //           this.show = false
+    //           ))
+    //       : this._.cloneDeep(this.selectedRow) 
+    // },
     showForm(formType) {
       this.formType = formType;
       this.show = true;
-      this.form =
+      this.form2 =
         formType === "INSERT"
-          ? this._.cloneDeep(this.defaultForm)
+          ? this._.cloneDeep(this.defaultForm2) 
           : this.selectedRow.id === null
           ? this.$alert({
               title: " ",
@@ -377,13 +432,13 @@ export default {
             }).then((
               this.show = false
               ))
-          : this._.cloneDeep(this.selectedRow) 
+          : this._.cloneDeep(this.selectedRow2) 
     },
     save(values) {
       let command = values.command,
         data = values.data;
       if ("INSERT" === command) {
-        users.insert(values);
+        users.insert(data);
         this.show=false;
       } else if ("UPDATE" === command) {
         users.update(data);

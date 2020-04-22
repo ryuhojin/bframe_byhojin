@@ -179,7 +179,7 @@
         </thead>
         <tbody class="vw-86">
           <tr
-            v-for="code in orderBySort"
+            v-for="code in codes"
             :key="code.ID"
             @click="selectRow(code)"
             class="vh-4 p-0 m-0"
@@ -280,7 +280,17 @@
         >{{ $t("lang.Code.table.amount") }} : {{ getCodeNum }}</span
       >
     </div>
-    <Modal
+    <stack-modal
+      :show="show"
+      :title="formType"
+      :type="formType"
+      :form="form2"
+      @submit="save"
+      @close="close"
+      :modal-class="{ [modalClass]: true }"
+    >
+    </stack-modal>
+    <!-- <Modal
       v-if="displayModal == 'block'"
       :title="formType"
       :form="form"
@@ -288,10 +298,11 @@
       :display-modal="displayModal"
       @close="displayModal = false"
       @submit="save"
-    ></Modal>
+    ></Modal> -->
   </div>
 </template>
 <script>
+import StackModal from "../components/common/StackModal";
 import Modal from "@/components/common/CodeModal";
 import { mapGetters } from "vuex";
 import users from "@/api/admin/User";
@@ -302,6 +313,9 @@ export default {
   data: function() {
     return {
       form: {},
+      show:false,
+      modalClass:"",
+      form2:[],
       searchForm: {
         CODE: null,
         CODE_NAME: null,
@@ -323,15 +337,32 @@ export default {
         LT_CHPR_ID: 1,
         APP_UID: 1
       },
+      defaultForm2:[
+        {name:"ID",value:"",type:"text"},
+        {name:"FST_RG_DTTI",value:"",type:"date"},
+        {name:"LT_CH_DTTI",value:"",type:"date"},
+        {name:"VERSION",value:"",type:"text"},
+        {name:"CODE",value:"",type:"text"},
+        {name:"DESCRIPTION",value:"",type:"text"},
+        {name:"CODE_NAME",value:"",type:"text"},
+        {name:"CODE_TEXT",value:"",type:"text"},
+        {name:"USE_YN",value:"",type:"select"},
+        {name:"CODE_VALUE",value:"",type:"text"},
+        {name:"FST_RGPR_ID",value:"",type:"text"},
+        {name:"LT_CHPR_ID",value:"",type:"text"},
+        {name:"APP_UID",value:"",type:"text"},
+      ],
       displayModal: "none",
       formType: null,
       selectedRow: { id: null },
+      selectedRow2:[],
       pagenum: 1,
       pageview: 16
     };
   },
   components: {
-    Modal
+    Modal,
+    StackModal
   },
 
   computed: {
@@ -350,12 +381,12 @@ export default {
       return this.totalCodePage(this.pageview);
     },
     getcodeslist: function() {
-      return this.codes(this.pagenum, this.pageview);
+      // return this.codes(this.pagenum, this.pageview);
     },
     orderBySort: function() {
       //아이디랑 CODE SORT기준으로 정렬 하는 함수
       return _.orderBy(
-        this.getcodeslist,
+        this.codes,
         ["ID", "CODE", "SORT"],
         ["asc", "asc", "asc"]
       );
@@ -363,33 +394,75 @@ export default {
   },
   methods: {
     selectRow(row) {
+            var len = Object.keys(row).length;
+      this.selectedRow2=[];
+      for(var i = 0; i<len;i++)
+      {
+        if(Object.keys(row)[i]=='FST_RG_DTTI')
+        {
+          this.selectedRow2.push({"name":Object.keys(row)[i],"value":Object.values(row)[i],"type":"date"})
+        }
+        else if(Object.keys(row)[i]=='LT_CH_DTTI')
+        {
+          this.selectedRow2.push({"name":Object.keys(row)[i],"value":Object.values(row)[i],"type":"date"})
+        }
+        else if(Object.keys(row)[i]=='USE_YN')
+        {
+          this.selectedRow2.push({"name":Object.keys(row)[i],"value":Object.values(row)[i],"type":"select"})
+        }
+        else{
+          this.selectedRow2.push({"name":Object.keys(row)[i],"value":Object.values(row)[i],"type":"text"})
+        }
+      }
       this.selectedRow = row;
+      
     },
     paging(item) {
       this.pagenum = item;
     },
+    // showForm(formType) {
+    //   this.formType = formType;
+    //   this.displayModal = "block";
+    //   this.form =
+    //     formType === "INSERT"
+    //       ? this._.cloneDeep(this.defaultForm)
+    //       : this.selectedRow.id === null
+    //       ? this.$alert({title:" ",message:'수정할 테이블을 선택하시오',
+    //       confirm:"네"}).then(this.displayModal = "false")
+    //       : this._.cloneDeep(this.selectedRow);
+    // },
     showForm(formType) {
       this.formType = formType;
-      this.displayModal = "block";
-      this.form =
+      this.show = true;
+      this.form2 =
         formType === "INSERT"
-          ? this._.cloneDeep(this.defaultForm)
+          ? this._.cloneDeep(this.defaultForm2) 
           : this.selectedRow.id === null
-          ? this.$alert({title:" ",message:'수정할 테이블을 선택하시오',
-          confirm:"네"}).then(this.displayModal = "false")
-          : this._.cloneDeep(this.selectedRow);
+          ? this.$alert({
+              title: " ",
+              message: "수정할 테이블을 선택하시오",
+              confirm: "네"
+            }).then((
+              this.show = false
+              ))
+          : this._.cloneDeep(this.selectedRow2) 
     },
     save(values) {
       let command = values.command,
         data = values.data;
       if ("INSERT" === command) {
-        codes.insert(values);
-        this.displayModal = "none";
+        codes.insert(data);
+        this.show=false;
       } else if ("UPDATE" === command) {
         codes.update(data);
-        this.displayModal = "none";
         this.selectedRow = { id: null };
+        this.show = false;
+        
       }
+    },
+    close(){
+      this.show = false
+      this.selectedRow ={ id:null}
     },
     remove() {
       this.$confirm({
