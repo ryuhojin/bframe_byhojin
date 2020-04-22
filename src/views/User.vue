@@ -280,7 +280,6 @@
   </div>
 </template>
 <script>
-import Modal from "@/components/common/UserModal";
 import StackModal from "../components/common/StackModal";
 import { mapGetters } from "vuex";
 import users from "@/api/admin/User";
@@ -334,7 +333,6 @@ export default {
     };
   },
   components: {
-    Modal,
     StackModal
   },
 
@@ -452,6 +450,13 @@ export default {
       this.selectedRow ={ id:null}
     },
     remove() {
+      this.selectedRow.id ===null ?
+      this.$alert({
+        title:" ",
+        message:"삭제할 행을 선택해주세요",
+        confirm:"네"
+      })
+      :
       this.$confirm({
         message: "정말 삭제하시겠습니까?",
         confirm: "네",

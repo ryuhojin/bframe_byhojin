@@ -116,10 +116,6 @@ export default {
       type: Object,
       default: () => ({})
     },
-    /*
-     * Transition to use when showing the modal.
-     * You need to include scss @innologica/vue-stackable-modal/src/assets/transitions/translate-fade.scss
-     * */
     transition: {
       type: String,
       default: "translate-fade"
@@ -208,6 +204,7 @@ export default {
     }
   },
   computed: {
+
     totalModals() {
       //global static variable :)
       return modals.count;

@@ -303,16 +303,14 @@
 </template>
 <script>
 import StackModal from "../components/common/StackModal";
-import Modal from "@/components/common/CodeModal";
 import { mapGetters } from "vuex";
 import users from "@/api/admin/User";
 import codes from "@/api/admin/Code";
-
 export default {
   name: "Code",
   data: function() {
     return {
-      form: {},
+      // form: {},
       show:false,
       modalClass:"",
       form2:[],
@@ -361,7 +359,6 @@ export default {
     };
   },
   components: {
-    Modal,
     StackModal
   },
 
@@ -443,9 +440,11 @@ export default {
               message: "수정할 테이블을 선택하시오",
               confirm: "네"
             }).then((
-              this.show = false
+              this.show = false,
+              this._.cloneDeep(this.defaultForm2)
               ))
           : this._.cloneDeep(this.selectedRow2) 
+          
     },
     save(values) {
       let command = values.command,
@@ -457,7 +456,6 @@ export default {
         codes.update(data);
         this.selectedRow = { id: null };
         this.show = false;
-        
       }
     },
     close(){
@@ -465,6 +463,13 @@ export default {
       this.selectedRow ={ id:null}
     },
     remove() {
+      this.selectedRow.id ===null ?
+      this.$alert({
+        title:" ",
+        message:"삭제할 행을 선택해주세요",
+        confirm:"네"
+      })
+      :
       this.$confirm({
         message: "정말 삭제하시겠습니까?",
         confirm: "네",
