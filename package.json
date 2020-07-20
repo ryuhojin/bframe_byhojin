@@ -15,7 +15,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "babel-polyfill": "^6.26.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "notivuecation": "^3.2.1",
     "splitpanes": "^2.2.1",
     "vue": "^2.5.2",
